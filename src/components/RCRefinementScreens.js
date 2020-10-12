@@ -38,8 +38,8 @@ class RCRefinementScreens extends React.Component {
                 <hr/>
                 <div style={{fontSize: "0.9em"}}>
                     {FIELD_RECODES.cuisines.map(function(c, i) {
-                        let m = this.state.tagMatcher.trim();
-                        if (m != "" && !c.includes(m))
+                        let m = this.state.tagMatcher.trim().toLowerCase();
+                        if (m != "" && !c.toLowerCase().includes(m) && !cuisines[c])
                             return null;
                         let cc = c.replace(" ", ""); //CamelCase
                         return <span key={"cuisine_"+i}>
