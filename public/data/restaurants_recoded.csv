@@ -1,0 +1,37 @@
+Name,Address,Ethnicity,Region,Dietary Restrictions,Establishment Type,Seating,Rating,Price,Good For,Description,Recommendations
+Thaan,"84-22 37th Ave, Jackson Heights, NY 11372",10,Northern Thai,2;4,5,"Sidewalk,Indoor",3,2,Fried Chicken,A new and underrated Thai spot. They specialize in meat and seafood but their vegan- and vegetarian-friendly offerings are solid.,Hat Yai (Fried Chicken); Spring Rolls; Pla Plo (Grilled Branzino);
+Khao Nom,"42-06 77th St, East Elmhurst, NY 11370",10,,2;4,5,"Sidewalk,Indoor,Public Space",3,1,"Dessert,Vegan,Lunchboxes",The *definitive* place for Thai desserts but their entrees hold up equally well. They also have excellent and unique vegan options.,"Spicy Mock Duck, Water Chestnut, Pandan Custard Crepes"
+Thai Thai Grocery,"76-13 Woodside Ave, Queens, NY 11373",10,,"",2,"None,Public Space",1,1,"Imported Snacks,Drinks",Cute & cozy Thai grocery that stocks a variety of imports,TODO Dhru
+Pata Paplean,"76-21 Woodside Ave, Queens, NY 11373",10,,"",1,"Sidewalk,Public Space",2,2,Cocktails,Conveniently located bar with plenty of physically-distanced seating and unique cocktails,Mango Sticky Rice [cocktail]
+Louie's Pizza,"8134 Baxter Ave # 1, Elmhurst, NY 11373",5,,4,5,"None,Public Space",1,2,Pizza,TODO Neil,Grandma Slice
+Variety Bakery,"8028 Northern Blvd, Flushing, NY 11372",5,,"",0,Sidewalk,1,1,Fresh Bread,,
+969 NYC Coffee,"3761 80th St, Jackson Heights, NY 11372",6,,"",3,Private Outdoor,1,1,"Coffee,Lunchboxes",Cozy Japanese cafe with... TODO Neil TODO Maksim,
+Unidentified Flying Chickens,"71-22 Roosevelt Avenue, Jackson Heights, NY 11372",7,,"",5;1,None,3,2,"Fried Chicken,Beer",Definitive neighborhood spot for Korean Fried Chicken and Beer,"Wings Combo, Poutine Fries, Delerium Nocturnum, Hitachino White, Nitro Milk Stout"
+Terraza 7,"40-19 Gleane St, Queens, NY 11373",8,,"",1,Sidewalk,1,2,Live Music,,
+Joju,"83-25 Broadway, Queens, NY 11373",11,,4,5,None,1,2,"Boba,Sandwiches,Bahn Mi",Bahn Mi shop with excellent green tea boba,"Bahn Mi with a fried egg, Mango Lychee Green Tea Infusion"
+Lamoon,"8140 Broadway, Elmhurst, NY 11373",10,,"",5,"None,Public Space",1,2,"Fried Chicken,Lunchboxes",Northern Thai restaurant that has pivoted toward serving to-go lunchboxes,
+Dek Sen,"86-08 Whitney Ave, Queens, NY 11373",10,,"",5,Sidewalk,1,2,,TODO Dhru,
+Taste Good,"8218 45th Ave, Queens, NY 11373",9,,2;4,5,Public Space,1,2,Vegan,TODO Dhru,
+Taco Veloz,"90-10 Roosevelt Ave, Queens, NY 11372",8,,"",6,None,1,1,"Quick Bites,Budget Friendly",TODO Maksim,
+White Bear,"135-02 Roosevelt Ave, Queens, NY 11354",2,,"",5;6,"None,Public Space",3,1,"Quick Bites,Budget Friendly,Wontons","Best spicy wontons in New York hands down, even before you factor in the low price.",#6: Spicy wontons
+Malay Restaurant Inc.,"135-17 40th Rd, Queens, NY 11354",9,,"",5,"None,Public Space",1,2,Budget Friendly,TODO Maksim,Curry Chicken over Rice
+Moden by dadam,"152-24 Northern Blvd, Queens, NY 11354",7,,"",5,"Sidewalk,Private Outdoor,Garden",1,2,,TODO Maksim,
+Thai Son,"40-10 74th Street, Elmhurst, NY 11373",11,,"",5,,1,2,Pho,The place to go to in Jackson Heights if you want pho,
+Habiba B&B (Sunnyside),"46-9, 46-1 Queens Blvd, Sunnyside, NY 11104",3,,0,4,"None,Public Space",1,2,Halal Food,,
+Habiba B&B (Steinway),"31-90 Steinway St, Astoria, NY 11103",3,,0,4,"None,Public Space",1,2,Halal Food,,
+Izikaya Fuku,"71-28 Roosevelt Ave, Queens, NY 11372",6,,"",5,Sidewalk,2,3,Comfort Food,TODO Maksim,
+Xi'an Famous Foods (Flushing),"41-10 Main St, Flushing, NY 11355",2,Western Chinese,2;4,5,,1,1,"Vegan,Vegetarian,Budget Friendly",Flushing location of a small chain. It's offering is very distinct and is a great spot for non-carnivores.,
+3 Aunties Thai Market,"64-04 39th Ave, Woodside, NY 11377",10,,"",2,None,1,1,"Imported Snacks,Drinks",TODO Dhru,
+Jahn's,"8104 37th Ave #1, Queens, NY 11372",1,,"",5,Sidewalk,1,2,Breakfast,TODO Maksim,
+Beijing Dumpling,"116-14A Queens Blvd, Queens, NY 11375",2,,4,5,,1,1,Wontons,,Spicy Wontons with Mushroom & Spinach 
+Cannelle Patisserie,"7559 31st Ave, Queens, NY 11370",5,,"",0,,3,2,,"A typical European bakery in most respects, except for the quality.",Napoleon Cake
+Spice,"4745 Vernon Blvd, Long Island City, NY 11101",10,,4,5,Sidewalk,1,2,,,
+Milkflower,"34-12 31st Ave, Astoria, NY 11106",5,,4,5,"Sidewalk,Public Space",2,2,Pizza,"Great, quiet spot for novel personal pizzas",
+88 Canteen,"58-46 Main St, Flushing, NY 11355",2,Cantonese,"",5,,1,2,Breakfast,Hong Kong style diner. It's a quirky genre but it grows on you.,
+39 Kings Cafe,"39-07 Prince St, Flushing, NY 11354",2,Cantonese,4,5,Public Space,1,2,"Late Night,Budget Friendly","The cuisine is nothing to write home about, but it's cost effective and is open well into the night.",
+E Noodle Cafe,"59-08 Kissena Blvd, Queens, NY 11355",2,Cantonese,"",5,,1,2,,,
+Temple Canteen,"45-57 Bowne St, Flushing, NY 11355",4,South Indian,3;2,5,Sidewalk,2,2,"Vegetarian,Budget Friendly",Cafeteria in the basement of a Hindu Temple. ,
+NY Go Go Fast Food Inc,"135-50 Roosevelt Ave, Flushing, NY 11354",2,,4,5,,2,1,Budget Friendly,"Rock bottom prices for decent food, right next to the 7 train and the LIRR. You'll hate yourself afterwards, but you wallet certainly won't.","Scallion pancakes, egg fried rice"
+Frangos Peri Peri Queens,"23316 Hillside Avenue, Queens Village, NY 11427","",,"",5,,1,2,Fried Chicken,TODO Dhru,
+Main Bakhtar Halal Kabab,"6729 Main St, Queens, NY 11367",0,,0,5,,2,2,Large Platters,"Typical middle eastern kebab, just pretty good and relatively cheap. Also a great option for large groups.",
+New Flushing Bakery,"135-45 Roosevelt Ave, Flushing, NY 11354",2,Cantonese,4,0,None,1,1,Egg Custard Tarts,,Portuguese Egg Custard Tarts
