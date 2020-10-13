@@ -1,10 +1,23 @@
 import React from 'react';
 
+function AccIcon(props) {
+    let c = "access-icon", alt="Wheelchair Icon";
+    if (props.gold) {
+        c += " gold";
+        alt = "Gold " + alt;
+    }
+    
+    return (
+        <img src="/images/icons/accessible-01.png" className={c} alt={alt}/>
+    );
+};
+
 export class Result extends React.Component {
     render() {
         let data = this.props.data;
         let est = data.getEstablishmentType()[0];
         let eth = data.getEthnicity();
+
         if (eth === "Halal Cart")
             est = null; // Halal carts are halal carts
 
@@ -37,7 +50,7 @@ export class Result extends React.Component {
         seating.map(fx.bind(this, "cyan-pill"));
 
         return <div className="search-result card">
-            <h3 className="search-result-title">{data.getName()} - {eth} {est}</h3>
+            <h3 className="search-result-title">{data.getAccessible() ? <AccIcon gold={data.getAccessibleSubway()}/> : null} {data.getName()} - {eth} {est}</h3>
             <p className="search-result-description">
                 <b>{data.getNeighborhood()}</b> - {data.getDescription()}
             </p>

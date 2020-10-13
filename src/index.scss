@@ -196,3 +196,18 @@ input:checked+.pill {
 .view-refinement-button+.view-refinement-button {
   margin-left: 1em;
 }
+
+.access-icon {
+  height: 1.4em;
+  margin: 0em 0.25em -0.4em -0.05em;
+  border: 1px solid $charcoal;
+  border-radius: 3px;
+}
+
+.gold.access-icon {
+  background-color: gold;
+  background-image: url('/images/gold-bg.jpg');
+  background-position-x: 69%;
+  background-size: cover;
+  border-color: #a0770e;
+}
