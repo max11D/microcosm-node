@@ -1,3 +1,5 @@
+/* eslint-disable no-throw-literal */
+
 import React from 'react';
 
 export default class RCBasicRefinementScreen extends React.Component {
