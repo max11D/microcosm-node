@@ -5,11 +5,12 @@ import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import FIELD_RECODES from "fieldRecodes.js"
 import { Result } from './Result';
+import ACCESSIBILITY_CODES from "accessibilityCodes.js";
 
 class Results extends React.Component {
     render() {
         var refinements = this.props.refinements;
-        var cuisines = [], neighborhoods = [];
+        var cuisines = [], neighborhoods = [], accessibility = [];
         let restaurants = this.props.restaurants || [];
 
         FIELD_RECODES.cuisines.forEach((c) => {
@@ -20,7 +21,12 @@ class Results extends React.Component {
         restaurants.neighborhoods.forEach((c) => {
             if (refinements.neighborhoods[c] === true)
                 neighborhoods.push(c);
-        })
+        });
+
+        ACCESSIBILITY_CODES.forEach((c) => {
+            if (refinements.accessibility[c] === true)
+                accessibility.push(c.toLowerCase().match(/(fully|parking|subway)/)[0])
+        });
 
         let results = restaurants.filter(function(row) {
             let retval = true;
@@ -29,6 +35,13 @@ class Results extends React.Component {
             }
             if (neighborhoods.length > 0) {
                 retval = retval && neighborhoods.includes(row.getNeighborhood());
+            }
+            for (let i = 0; i < accessibility.length; i++) {
+                console.info(row);
+                if (accessibility[i] == "fully")
+                    retval = retval && !!row.getAccessible();
+                if (accessibility[i] == "subway")
+                    retval = retval && !!row.getAccessibleSubway();
             }
 
             return retval;

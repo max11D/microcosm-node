@@ -42,11 +42,14 @@ export default class Restaurants {
             }
         }.bind(this))
 
+        let goodForIndex = this.headers.indexOf("Good For"),
+            seatingIndex = this.headers.indexOf("Seating"),
+            accessIndex = this.headers.indexOf("Accessible");
+
         for (let i = 0; i < length-1; i++) {
             this.rows[i] = CSVToArray(csv[i+1])[0];
             
             recodes.forEach(function(n) {
-                //console.log(this.rows[i][n])
                 this.rows[i][n] = parseInt(this.rows[i][n])
             }.bind(this));
 
@@ -59,17 +62,18 @@ export default class Restaurants {
                     this.rows[i][n] = [];
             }.bind(this))
 
-            let n = this.headers.indexOf("Good For");
-            this.rows[i][n] = this.rows[i][n].split(",");
+            let n = 
+            this.rows[i][goodForIndex] = this.rows[i][goodForIndex].split(",");
 
-            n = this.headers.indexOf("Seating");
-
-            if (this.rows[i][n])
-                this.rows[i][n] = this.rows[i][n].split(",");
+            if (this.rows[i][seatingIndex])
+                this.rows[i][seatingIndex] = this.rows[i][seatingIndex].split(",");
             else
-                this.rows[i][n] = [];
+                this.rows[i][seatingIndex] = [];
                 
             neighborhoods.add(this.getNeighborhood(i));
+
+            let accMap = {"Y": true, "N": false}
+            this.rows[i][accessIndex] = accMap[this.rows[i][accessIndex]] || null;
         }
 
         this.neighborhoods = Array.from(neighborhoods).sort();
@@ -84,6 +88,8 @@ export default class Restaurants {
             this.rows[i].getGoodFor = this.getGoodFor.bind(this, i);
             this.rows[i].getDietaryRestrictions = this.getDietaryRestrictions.bind(this, i);
             this.rows[i].getSeating = this.getSeating.bind(this, i);
+            this.rows[i].getAccessible = this.getAccessible.bind(this, i);
+            this.rows[i].getAccessibleSubway = this.getAccessibleSubway.bind(this, i);
         }
     }
 

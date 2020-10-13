@@ -1,7 +1,11 @@
 require 'csv'
 require 'json'
 
-csv = CSV.read("./restaurants.csv", headers: true)
+f = File.read("./restaurants.csv", encoding: "UTF-8")
+puts f.encoding
+f.gsub!("\xEF\xBB\xBF", "") # strip BOM
+
+csv = CSV.parse(f, headers: true)
 
 cuisines = []
 

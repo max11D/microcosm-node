@@ -14,14 +14,14 @@ class App extends React.Component {
     this.state = {
       step: SCREENS.PRIORITIES,
       refinementScreen: REFINEMENT.NONE,
-      refinements: {cuisines: {}, neighborhoods: {}},
+      refinements: {cuisines: {}, neighborhoods: {}, accessibility: {}},
       restaurants: null
     }
   }
 
   setSearchView(step, refinementScreen, refinements) {
     if (!refinements)
-      refinements = {cuisines: {}, neighborhoods: {}}
+      refinements = {cuisines: {}, neighborhoods: {}, accessibility: {}}
     this.setState({
       step: step,
       refinementScreen: refinementScreen || REFINEMENT.NONE,

@@ -20,13 +20,18 @@ export default class RCBasicRefinementScreen extends React.Component {
 
         let selected = this.props.refinements[this.refinementName];
 
+        let matcher = null;
+
+        if (this.placeholder) 
+            matcher = <div style={{margin: "0 12px"}}>
+                <input type="text" placeholder={this.placeholder} className="full-width" 
+                    value={this.state.tagMatcher} onChange={this.onTextUpdate.bind(this)}/>
+            </div>;
+
         return <div className="refinementContainer">
             <div className="refinementHeader">
                 <h1 className="refineView">{this.header}</h1>
-                <div style={{margin: "0 12px"}}>
-                    <input type="text" placeholder={this.placeholder} className="full-width" 
-                        value={this.state.tagMatcher} onChange={this.onTextUpdate.bind(this)}/>
-                </div>
+                {matcher}
             </div>
             <hr/>
             <div style={{fontSize: "0.9em"}}>
@@ -43,6 +48,8 @@ export default class RCBasicRefinementScreen extends React.Component {
                     </span>
                 }.bind(this))} 
             </div>
+            <br/>
+            {this.explanation}
         </div>
     }
 }

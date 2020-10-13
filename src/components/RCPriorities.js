@@ -36,7 +36,7 @@ function RCPriorities(props) {
             </button>
             <br/><br/>
             <button style={buttonStyle} className="cyan"
-                onClick={() => {props.onClick(SCREENS.SEARCH, null, {accessible: true})}}>
+                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.ACCESSIBILITY)}}>
                 find accessible options
             </button>
         </div>
