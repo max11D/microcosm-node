@@ -14,14 +14,14 @@ class App extends React.Component {
     this.state = {
       step: SCREENS.PRIORITIES,
       refinementScreen: REFINEMENT.NONE,
-      refinements: {cuisines: {}},
+      refinements: {cuisines: {}, neighborhoods: {}},
       restaurants: null
     }
   }
 
   setSearchView(step, refinementScreen, refinements) {
     if (!refinements)
-      refinements = {cuisines: {}}
+      refinements = {cuisines: {}, neighborhoods: {}}
     this.setState({
       step: step,
       refinementScreen: refinementScreen || REFINEMENT.NONE,
@@ -65,7 +65,8 @@ class App extends React.Component {
         currentRefinement={this.state.refinementScreen} 
         refinements={this.state.refinements} 
         onTick={this.onTick.bind(this)}
-        viewResults={viewResults}/>;
+        viewResults={viewResults}
+        neighborhoods={this.state.restaurants.neighborhoods}/>;
     } else if (this.state.step === SCREENS.SEARCH) {
       view = <RCResults 
         restaurants={this.state.restaurants} 

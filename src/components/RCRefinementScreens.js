@@ -42,6 +42,45 @@ class RCCuisineRefinementScreen extends React.Component {
     }
 }
 
+class RCNeighborhoodRefinementScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {tagMatcher: ""}
+    }
+
+    onTextUpdate(e) {
+        this.setState({tagMatcher: e.target.value})
+    }
+
+    render() {
+        let hoods = this.props.refinements.neighborhoods;
+
+        return <div className="refinementContainer">
+            <div className="refinementHeader">
+                <h1 className="refineView">Refine results by cuisine</h1>
+                <div style={{margin: "0 12px"}}>
+                    <input type="text" placeholder="Today's location..." className="full-width" 
+                        value={this.state.tagMatcher} onChange={this.onTextUpdate.bind(this)}/>
+                </div>
+            </div>
+            <hr/>
+            <div style={{fontSize: "0.9em"}}>
+                {this.props.neighborhoods.map(function(c, i) {
+                    let m = this.state.tagMatcher.trim().toLowerCase();
+                    if (m != "" && !c.toLowerCase().includes(m) && !hoods[c])
+                        return null;
+                    let cc = c.replace(" ", ""); //CamelCase
+                    return <span key={"neighborhoods_"+i}>
+                        <input type="checkbox" id={"neighborhoods_"+cc} name={"neighborhoods."+c} value={c}
+                            className="hidden" checked={hoods[c] ? true : false} onChange={this.props.onTick}/>
+                        <label htmlFor={"neighborhoods_"+cc} className="pill"><b>{c}</b></label>
+                    </span>
+                }.bind(this))} 
+            </div>
+        </div>
+    }
+}
+
 class RefinementFooter extends React.Component {
     render() {
         return <div className="refinement-footer">
@@ -76,6 +115,11 @@ class RCRefinementScreens extends React.Component {
             retval = <RCCuisineRefinementScreen key="r" 
                 refinements={this.props.refinements} 
                 onTick={this.props.onTick}/>
+        } else if (this.props.currentRefinement == REFINEMENT.NEIGHBORHOOD) {
+            retval = <RCNeighborhoodRefinementScreen key="r"
+                refinements={this.props.refinements}
+                onTick={this.props.onTick}
+                neighborhoods={this.props.neighborhoods}/>
         }
         return [retval, <RefinementFooter key="f"
             viewResults={this.props.viewResults}/>];

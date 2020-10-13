@@ -1,5 +1,5 @@
 import React from 'react';
-import {SCREENS, REFINEMENT} from "../enums.js"
+import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import FIELD_RECODES from "fieldRecodes.js"
 
@@ -15,7 +15,10 @@ class Result extends React.Component {
         var kn = 0;
 
         let fx = function(pillColor, x, i) {
-            pills.push(<span key={pillColor[0]+kn} className={pillColor + " pill search-result-pill "+pillColor[0]+i}>{x.toLowerCase()}</span>);
+            pills.push(<span key={pillColor[0]+kn} 
+                className={pillColor + " pill search-result-pill "+pillColor[0]+i}>
+                    {x.toLowerCase()}
+                </span>);
             kn++;
         }
 
@@ -40,7 +43,7 @@ class Result extends React.Component {
             <p className="search-result-description">
                 <b>{data.getNeighborhood()}</b> - {data.getDescription()}
             </p>
-            <span style={{fontSize: "0.85em"}}>{pills}</span>
+            <span style={{fontSize: "0.80em"}}>{pills}</span>
             <hr/>
             <div className="search-result-details"><b>View Details</b></div>
         </div>
@@ -50,20 +53,28 @@ class Result extends React.Component {
 class Results extends React.Component {
     render() {
         var refinements = this.props.refinements;
-        var cuisines = [];
+        var cuisines = [], neighborhoods = [];
+        let restaurants = this.props.restaurants || [];
 
         FIELD_RECODES.cuisines.forEach((c) => {
             if (refinements.cuisines[c] === true)
                 cuisines.push(c);
-        })
+        });
 
-        let restaurants = this.props.restaurants || [];
+        restaurants.neighborhoods.forEach((c) => {
+            if (refinements.neighborhoods[c] === true)
+                neighborhoods.push(c);
+        })
 
         let results = restaurants.filter(function(row) {
             let retval = true;
             if (cuisines.length > 0) {
                 retval = retval && cuisines.includes(row.getEthnicity());
             }
+            if (neighborhoods.length > 0) {
+                retval = retval && neighborhoods.includes(row.getNeighborhood());
+            }
+
             return retval;
         }.bind(this));
 

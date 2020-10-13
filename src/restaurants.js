@@ -89,6 +89,7 @@ export default class Restaurants {
         this.headers = csv[0].split(",");
         let length = csv.length-1;
         this.rows = new Array(length);
+        let neighborhoods = new Set();
 
         let recodes = [
             this.headers.indexOf("Ethnicity"), 
@@ -100,6 +101,28 @@ export default class Restaurants {
             this.headers.indexOf("Dietary Restrictions"),
             this.headers.indexOf("Establishment Type")
         ]
+
+        this.headers.forEach(function(f, i) {
+            if (f === "Ethnicity") {
+                this.getEthnicity = function(j){
+                    return FIELD_RECODES["cuisines"][this.rows[j][i]];
+                }.bind(this);
+            } else if (f === "Dietary Restrictions") {
+                this.getDietaryRestrictions = function(j){
+                    return this.rows[j][i].map((x) => {return FIELD_RECODES["diets"][x]});
+                }.bind(this);
+            } else if (f === "Establishment Type") {
+                this.getEstablishmentType = function(j){
+                    return this.rows[j][i].map((x) => {return FIELD_RECODES["establishment_types"][x]});
+                }.bind(this);
+            } else {
+                var fx = "get" + f.replace(" ", "");
+                
+                this[fx] = function(j) {
+                    return this.rows[j][i];
+                }.bind(this)
+            }
+        }.bind(this))
 
         for (let i = 0; i < length-1; i++) {
             this.rows[i] = CSVToArray(csv[i+1])[0];
@@ -128,35 +151,12 @@ export default class Restaurants {
             else
                 this.rows[i][n] = [];
                 
+            neighborhoods.add(this.getNeighborhood(i));
         }
 
-
-        this.headers.forEach(function(f, i) {
-            if (f === "Ethnicity") {
-                this.getEthnicity = function(j){
-                    return FIELD_RECODES["cuisines"][this.rows[j][i]];
-                }.bind(this);
-            } else if (f === "Dietary Restrictions") {
-                this.getDietaryRestrictions = function(j){
-                    return this.rows[j][i].map((x) => {return FIELD_RECODES["diets"][x]});
-                }.bind(this);
-            } else if (f === "Establishment Type") {
-                this.getEstablishmentType = function(j){
-                    return this.rows[j][i].map((x) => {return FIELD_RECODES["establishment_types"][x]});
-                }.bind(this);
-            } else {
-                var fx = "get" + f.replace(" ", "");
-                
-                this[fx] = function(j) {
-                    return this.rows[j][i];
-                }.bind(this)
-            }
-        }.bind(this))
-
-
+        this.neighborhoods = Array.from(neighborhoods).sort();
 
         for (let i = this.rows.length-2; i >= 0; i--) {
-            console.log(i);
             this.rows[i].getEthnicity = this.getEthnicity.bind(this, i);
             this.rows[i].getName = this.getName.bind(this, i);
             this.rows[i].getEstablishmentType = this.getEstablishmentType.bind(this, i);
