@@ -1,5 +1,5 @@
 import React from 'react';
-import {SCREENS, REFINEMENT} from "../enums.js"
+import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import FIELD_RECODES from "fieldRecodes.js"
 
@@ -28,7 +28,7 @@ class RCCuisineRefinementScreen extends React.Component {
             <div style={{fontSize: "0.9em"}}>
                 {FIELD_RECODES.cuisines.map(function(c, i) {
                     let m = this.state.tagMatcher.trim().toLowerCase();
-                    if (m != "" && !c.toLowerCase().includes(m) && !cuisines[c])
+                    if (m !== "" && !c.toLowerCase().includes(m) && !cuisines[c])
                         return null;
                     let cc = c.replace(" ", ""); //CamelCase
                     return <span key={"cuisine_"+i}>
@@ -67,7 +67,7 @@ class RCNeighborhoodRefinementScreen extends React.Component {
             <div style={{fontSize: "0.9em"}}>
                 {this.props.neighborhoods.map(function(c, i) {
                     let m = this.state.tagMatcher.trim().toLowerCase();
-                    if (m != "" && !c.toLowerCase().includes(m) && !hoods[c])
+                    if (m !== "" && !c.toLowerCase().includes(m) && !hoods[c])
                         return null;
                     let cc = c.replace(" ", ""); //CamelCase
                     return <span key={"neighborhoods_"+i}>
@@ -109,13 +109,11 @@ class RCRefinementScreens extends React.Component {
     render() {
         let retval = null;
 
-        let cuisines = this.props.refinements.cuisines;
-
-        if (this.props.currentRefinement == REFINEMENT.CUISINE) {
+        if (this.props.currentRefinement === REFINEMENT.CUISINE) {
             retval = <RCCuisineRefinementScreen key="r" 
                 refinements={this.props.refinements} 
                 onTick={this.props.onTick}/>
-        } else if (this.props.currentRefinement == REFINEMENT.NEIGHBORHOOD) {
+        } else if (this.props.currentRefinement === REFINEMENT.NEIGHBORHOOD) {
             retval = <RCNeighborhoodRefinementScreen key="r"
                 refinements={this.props.refinements}
                 onTick={this.props.onTick}

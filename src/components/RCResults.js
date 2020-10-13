@@ -1,3 +1,5 @@
+/* eslint-disable no-extra-bind */
+
 import React from 'react';
 import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
