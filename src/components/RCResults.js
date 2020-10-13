@@ -12,8 +12,11 @@ class Result extends React.Component {
 
         var pills = [];
 
+        var kn = 0;
+
         let fx = function(pillColor, x, i) {
-            pills.push(<span key={pillColor[0]+i} className={pillColor + " pill search-result-pill"}>{x.toLowerCase()}</span>);
+            pills.push(<span key={pillColor[0]+kn} className={pillColor + " pill search-result-pill "+pillColor[0]+i}>{x.toLowerCase()}</span>);
+            kn++;
         }
 
         data.getGoodFor().map(fx.bind(this, "orange-pill"));
@@ -67,6 +70,18 @@ class Results extends React.Component {
         let retval = results.map(function(r,i){
             return <Result key={"result_"+i} data={r}/>;
         }.bind(this));
+
+        var vR = this.props.viewRefinement;
+
+        retval.unshift(<div style={{textAlign: "center"}}>
+            <div style={{fontSize: "0.9em", marginTop: "0.66em"}}>filter results by</div>
+            <button className="orange view-refinement-button" name={REFINEMENT.CUISINE} onClick={vR}>cuisine</button>
+            <button className="orange view-refinement-button" name={REFINEMENT.NEIGHBORHOOD} onClick={vR}>neighborhood</button>
+            <br/>
+            <button className="cyan view-refinement-button" name={REFINEMENT.ACCESSIBILITY} onClick={vR}>accessibility</button>
+            <button className="cyan view-refinement-button" name={REFINEMENT.DIET} onClick={vR}>diet</button>
+            <hr/>
+        </div>)
 
         return retval;
     }

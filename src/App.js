@@ -41,17 +41,36 @@ class App extends React.Component {
     $.get("/data/restaurants_recoded.csv", function(data) {
       this.setState({restaurants: new Restaurants(data)});
     }.bind(this))
+
+    document.getElementById("body").style["min-height"] = window.outerHeight + "px";
   }
 
   render() {
     let view = null;
 
+    let viewResults = function() {
+      this.setState({step: SCREENS.SEARCH});
+    }.bind(this);
+
+    let viewRefinement = function(e) {
+      let refinement = parseInt(e.target.name);
+      console.warn(refinement);
+      this.setState({step: SCREENS.REFINE, refinementScreen: refinement});
+    }.bind(this);
+
     if (this.state.step === SCREENS.PRIORITIES)
       view = <RCPriorities onClick={this.setSearchView.bind(this)}/>
-    else if (this.state.step === SCREENS.REFINE || this.state.step === SCREENS.SEARCH) {
-      view = [<RCRefinementScreens 
+    else if (this.state.step === SCREENS.REFINE) {
+      view = <RCRefinementScreens 
         currentRefinement={this.state.refinementScreen} 
-        refinements={this.state.refinements} onTick={this.onTick.bind(this)}/>]
+        refinements={this.state.refinements} 
+        onTick={this.onTick.bind(this)}
+        viewResults={viewResults}/>;
+    } else if (this.state.step === SCREENS.SEARCH) {
+      view = <RCResults 
+        restaurants={this.state.restaurants} 
+        refinements={this.state.refinements}
+        viewRefinement={viewRefinement}/>;
     }
 
     /*if (this.state.restaurants) 
@@ -63,7 +82,7 @@ class App extends React.Component {
           Microcosm
         </header>
         {view}
-        <RCResults restaurants={this.state.restaurants} refinements={this.state.refinements}/>
+        
       </div>
     );
   }

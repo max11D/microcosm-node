@@ -12,6 +12,7 @@ body {
   font-size: 18px;
   font-family: $body-font;
   padding-top: 55px;
+  box-sizing: border-box;
 }
 
 code {
@@ -162,4 +163,36 @@ input:checked+.pill {
   margin: -0.5em -0.5em 0;
   padding: 0.5em;
   cursor: pointer;
+}
+
+.refinement-footer {
+  background-color: $charcoal;
+  position: fixed;
+  width: 100%;
+  margin-top: 1em;
+  left: 0;
+  //right: 0;
+  bottom: 0;
+  padding: 0.5em;
+  text-align: center;
+  box-shadow: 0px -1px 4px 1px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+}
+
+.clear-filter {
+  color: white;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  vertical-align: baseline;
+  margin-right: 1.5em;
+}
+
+.view-refinement-button {
+  font-size: 0.9em;
+  width: 10em;
+  margin-top: 0.66em;
+}
+
+.view-refinement-button+.view-refinement-button {
+  margin-left: 1em;
 }

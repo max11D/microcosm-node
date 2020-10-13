@@ -6,6 +6,52 @@ import FIELD_RECODES from "fieldRecodes.js"
 class RCCuisineRefinementScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {tagMatcher: ""};
+    }
+
+    onTextUpdate(e) {
+        this.setState({tagMatcher: e.target.value})
+    }
+
+    render() {
+        let cuisines = this.props.refinements.cuisines;
+
+        return <div className="refinementContainer">
+            <div className="refinementHeader">
+                <h1 className="refineView">Refine results by cuisine</h1>
+                <div style={{margin: "0 12px"}}>
+                    <input type="text" placeholder="Today's craving..." className="full-width" 
+                        value={this.state.tagMatcher} onChange={this.onTextUpdate.bind(this)}/>
+                </div>
+            </div>
+            <hr/>
+            <div style={{fontSize: "0.9em"}}>
+                {FIELD_RECODES.cuisines.map(function(c, i) {
+                    let m = this.state.tagMatcher.trim().toLowerCase();
+                    if (m != "" && !c.toLowerCase().includes(m) && !cuisines[c])
+                        return null;
+                    let cc = c.replace(" ", ""); //CamelCase
+                    return <span key={"cuisine_"+i}>
+                        <input type="checkbox" id={"cuisine_"+cc} name={"cuisines."+c} value={c}
+                            className="hidden" checked={cuisines[c] ? true : false} onChange={this.props.onTick}/>
+                        <label htmlFor={"cuisine_"+cc} className="pill"><b>{c}</b></label>
+                    </span>
+                }.bind(this))} 
+            </div>
+        </div>
+    }
+}
+
+class RefinementFooter extends React.Component {
+    render() {
+        return <div className="refinement-footer">
+            <a href="#" onClick={this.props.clearRefinement} className="clear-filter">
+                clear filter
+            </a>
+            <button onClick={this.props.viewResults} className="cyan">
+                view {this.props.resultCount} results
+            </button>
+        </div>
     }
 }
 
@@ -27,32 +73,12 @@ class RCRefinementScreens extends React.Component {
         let cuisines = this.props.refinements.cuisines;
 
         if (this.props.currentRefinement == REFINEMENT.CUISINE) {
-            retval = <div className="refinementContainer">
-                <div className="refinementHeader">
-                    <h1 className="refineView">Refine results by cuisine</h1>
-                    <div style={{margin: "0 12px"}}>
-                        <input type="text" placeholder="Today's craving..." className="full-width" 
-                            value={this.state.tagMatcher} onChange={this.onTextUpdate.bind(this)}/>
-                    </div>
-                </div>
-                <hr/>
-                <div style={{fontSize: "0.9em"}}>
-                    {FIELD_RECODES.cuisines.map(function(c, i) {
-                        let m = this.state.tagMatcher.trim().toLowerCase();
-                        if (m != "" && !c.toLowerCase().includes(m) && !cuisines[c])
-                            return null;
-                        let cc = c.replace(" ", ""); //CamelCase
-                        return <span key={"cuisine_"+i}>
-                            <input type="checkbox" id={"cuisine_"+cc} name={"cuisines."+c} value={c}
-                                className="hidden" checked={cuisines[c] ? true : false} onChange={this.props.onTick}/>
-                            <label htmlFor={"cuisine_"+cc} className="pill"><b>{c}</b></label>
-                        </span>
-                    }.bind(this))} 
-                </div>
-            </div>
+            retval = <RCCuisineRefinementScreen key="r" 
+                refinements={this.props.refinements} 
+                onTick={this.props.onTick}/>
         }
-// .filter((x) => {return !(x == null);})
-        return retval;
+        return [retval, <RefinementFooter key="f"
+            viewResults={this.props.viewResults}/>];
     }
 }
 
