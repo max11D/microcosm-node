@@ -38,9 +38,9 @@ class Results extends React.Component {
             }
             for (let i = 0; i < accessibility.length; i++) {
                 console.info(row);
-                if (accessibility[i] == "fully")
+                if (accessibility[i] === "fully")
                     retval = retval && !!row.getAccessible();
-                if (accessibility[i] == "subway")
+                if (accessibility[i] === "subway")
                     retval = retval && !!row.getAccessibleSubway();
             }
 

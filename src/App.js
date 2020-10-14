@@ -51,6 +51,19 @@ class App extends React.Component {
     document.getElementById("body").style["min-height"] = window.outerHeight + "px";
   }
 
+  getSnapshotBeforeUpdate() {
+    let footer = document.getElementsByTagName("footer")[0];
+    if (this.state.step === SCREENS.REFINE || this.state.step === SCREENS.SEARCH)
+      footer.classList.add("hidden");
+    else
+      footer.classList.remove("hidden");
+    return null;
+  }
+
+  componentDidUpdate() {
+    //NO-OP
+  }
+
   render() {
     let view = null;
 

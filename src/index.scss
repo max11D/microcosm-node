@@ -11,7 +11,7 @@ body {
   background-color: $cream;
   font-size: 18px;
   font-family: $body-font;
-  padding-top: 55px;
+  padding-top: 50px;
   box-sizing: border-box;
 }
 
@@ -38,6 +38,20 @@ button, .button {
   box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.3);
   transition: box-shadow 100ms ease-in-out;
   font-family: $body-font;
+  color: $charcoal;
+  text-decoration: none;
+}
+
+.anchor-style, .anchor-style {
+  color: $charcoal;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  border: none;
+  padding: 0px;
+  -webkit-appearance: auto;
+  appearance: auto;
 }
 
 button:active, .button:active {
@@ -53,10 +67,12 @@ button:focus, .button:focus {
 
 button.orange, .button.orange {
   background-color: $orange;
+  color: $charcoal;
 }
 
 button.cyan, .button.cyan {
   background-color: $cyan;
+  color: $charcoal;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -72,9 +88,9 @@ header {
   background-color: $charcoal;
   color: $cream;
   font-family: $header-font;
-  font-size: 32px;
+  font-size: 26px;
   line-height: 1em;
-  padding: 0.5em 0 0.2em;
+  padding: 0.6em 0 0.3em;
   letter-spacing: 0.02em;
   text-align: center;
   text-transform: uppercase;
@@ -83,6 +99,39 @@ header {
   left: 0;
   width: 100%;
   box-shadow: 0px 2px 8px 1px rgba(0,0,0,0.5);
+}
+
+a {
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+footer {
+  margin-top: 2em;
+  background-color: $charcoal;
+  color: $cream;
+  text-align: center;
+  padding: 1em 0.5em;
+  font-size: 0.9em;
+}
+
+.built-in-queens {
+  font-family: $header-font;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+footer>.copyrights {
+  font-size: 0.8em;
+  margin-top: 1.5em;
+}
+
+p.footer {
+  margin: 0.5em;
+  opacity: 0.95;
 }
 
 input[type=text], input[type=password], input[type=number]{

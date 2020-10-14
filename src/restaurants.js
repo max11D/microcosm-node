@@ -62,7 +62,6 @@ export default class Restaurants {
                     this.rows[i][n] = [];
             }.bind(this))
 
-            let n = 
             this.rows[i][goodForIndex] = this.rows[i][goodForIndex].split(",");
 
             if (this.rows[i][seatingIndex])
