@@ -37,6 +37,12 @@ class App extends React.Component {
     this.setState({refinements: ns});
   }
 
+  onClear(category) {
+    let ns = deepCopy(this.state.refinements);
+    ns[category] = {};
+    this.setState({refinements: ns});
+  }
+
   componentDidMount() {
     $.get("/data/restaurants_recoded.csv", function(data) {
       this.setState({restaurants: new Restaurants(data)});
@@ -54,7 +60,6 @@ class App extends React.Component {
 
     let viewRefinement = function(e) {
       let refinement = parseInt(e.target.name);
-      console.warn(refinement);
       this.setState({step: SCREENS.REFINE, refinementScreen: refinement});
     }.bind(this);
 
@@ -66,6 +71,7 @@ class App extends React.Component {
         refinements={this.state.refinements} 
         onTick={this.onTick.bind(this)}
         viewResults={viewResults}
+        onClear={this.onClear.bind(this)}
         neighborhoods={this.state.restaurants.neighborhoods}/>;
     } else if (this.state.step === SCREENS.SEARCH) {
       view = <RCResults 

@@ -19,21 +19,28 @@ export default class RCRefinementScreens extends React.Component {
     render() {
         let retval = null;
 
+        var clearFx = this.props.onClear;
+        var boundClearFx = null;
+
         if (this.props.currentRefinement === REFINEMENT.CUISINE) {
             retval = <RCCuisineRefinementScreen key="r" 
                 refinements={this.props.refinements} 
-                onTick={this.props.onTick}/>
+                onTick={this.props.onTick}/>;
+            boundClearFx = () => { clearFx("cuisines"); }
         } else if (this.props.currentRefinement === REFINEMENT.NEIGHBORHOOD) {
             retval = <RCNeighborhoodRefinementScreen key="r"
                 refinements={this.props.refinements}
                 onTick={this.props.onTick}
-                neighborhoods={this.props.neighborhoods}/>
+                neighborhoods={this.props.neighborhoods}/>;
+            boundClearFx = () => { clearFx("neighborhoods"); }
         } else if (this.props.currentRefinement === REFINEMENT.ACCESSIBILITY) {
             retval = <RCAccessibilityRefinementScreen key="r"
                 refinements={this.props.refinements}
-                onTick={this.props.onTick}/>
+                onTick={this.props.onTick}/>;
+            boundClearFx = () => { clearFx("accessibility"); }
         }
         return [retval, <RefinementFooter key="f"
-            viewResults={this.props.viewResults}/>];
+            viewResults={this.props.viewResults}
+            onClear={boundClearFx}/>];
     }
 }
