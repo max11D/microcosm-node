@@ -1,4 +1,5 @@
 import React from 'react';
+import nameToSafeURL from 'utils/nameToSafeURL'
 
 function AccIcon(props) {
     let c = "access-icon", alt="Wheelchair Icon";
@@ -11,6 +12,21 @@ function AccIcon(props) {
         <img src="/images/icons/accessible-01.png" className={c} alt={alt}/>
     );
 };
+
+function thumbnail(data) {
+    let img = null;
+
+    if (data.hasImage()) {
+        let path = "/images/restaurants/" + nameToSafeURL(data.getName()) + "/thumb.jpg";
+        img = <img className="search-result-image" src={path} alt={data.getFirstImageAlt()}/>
+    } else {
+        img = <div className="search-result-image"/>
+    }
+    return <div className="search-result-image-container">
+        {data.getAccessible() ? <AccIcon gold={data.getAccessibleSubway()}/> : null}    
+        {img}
+    </div>
+}
 
 export class Result extends React.Component {
     render() {
@@ -49,8 +65,10 @@ export class Result extends React.Component {
 
         seating.map(fx.bind(this, "cyan-pill"));
 
+
         return <div className="search-result card">
-            <h3 className="search-result-title">{data.getAccessible() ? <AccIcon gold={data.getAccessibleSubway()}/> : null} {data.getName()} - {eth} {est}</h3>
+            {thumbnail(data)}
+            <h3 className="search-result-title">{data.getName()} - {eth} {est}</h3>
             <p className="search-result-description">
                 <b>{data.getNeighborhood()}</b> - {data.getDescription()}
             </p>

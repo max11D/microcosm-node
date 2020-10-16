@@ -35,7 +35,7 @@ export default class Restaurants {
                     return this.rows[j][i].map((x) => {return FIELD_RECODES["establishment_types"][x]});
                 }.bind(this);
             } else {
-                var fx = "get" + f.replace(" ", "");
+                var fx = "get" + f.replaceAll(" ", "").trim();
                 
                 this[fx] = function(j) {
                     return this.rows[j][i];
@@ -93,6 +93,7 @@ export default class Restaurants {
             this.rows[i].getAccessibleSubway = this.getAccessibleSubway.bind(this, i);
             this.rows[i].getImageCount = this.getImageCount.bind(this, i);
             this.rows[i].hasImage = this.hasImage.bind(this, i);
+            this.rows[i].getFirstImageAlt = this.getFirstImageAlt.bind(this, i);
 
             this.rows[i].additionalData = {};
         }

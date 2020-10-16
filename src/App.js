@@ -45,7 +45,9 @@ class App extends React.Component {
 
   componentDidMount() {
     $.get("/data/restaurants_recoded.csv", function(data) {
-      this.setState({restaurants: new Restaurants(data)});
+      let r = new Restaurants(data);
+      console.info(r);
+      this.setState({restaurants: r});
     }.bind(this))
 
     document.getElementById("body").style["min-height"] = window.outerHeight + "px";
