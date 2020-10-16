@@ -12,7 +12,8 @@ export default class Restaurants {
         let recodes = [
             this.headers.indexOf("Ethnicity"), 
             this.headers.indexOf("Rating"),
-            this.headers.indexOf("Price")
+            this.headers.indexOf("Price"),
+            this.headers.indexOf("Image Count")
         ];
 
         let arrRecodes = [
@@ -44,7 +45,8 @@ export default class Restaurants {
 
         let goodForIndex = this.headers.indexOf("Good For"),
             seatingIndex = this.headers.indexOf("Seating"),
-            accessIndex = this.headers.indexOf("Accessible");
+            accessIndex = this.headers.indexOf("Accessible"),
+            altIndex = this.headers.indexOf("First Image Alt");
 
         for (let i = 0; i < length-1; i++) {
             this.rows[i] = CSVToArray(csv[i+1])[0];
@@ -89,6 +91,10 @@ export default class Restaurants {
             this.rows[i].getSeating = this.getSeating.bind(this, i);
             this.rows[i].getAccessible = this.getAccessible.bind(this, i);
             this.rows[i].getAccessibleSubway = this.getAccessibleSubway.bind(this, i);
+            this.rows[i].getImageCount = this.getImageCount.bind(this, i);
+            this.rows[i].hasImage = this.hasImage.bind(this, i);
+
+            this.rows[i].additionalData = {};
         }
     }
 
@@ -102,5 +108,16 @@ export default class Restaurants {
 
     getNeighborhood(i) {
         return this.getAddress(i).match(/\s+([\w\s]+),\s[\w\s]+[0-9]{5}/)[1];
+    }
+
+    hasImage(i) {
+        return this.getImageCount(i) > 0;
+    }
+
+    getAlt(i, j) {
+        if (j == 1)
+            return this.getFirstImageAlt(i);
+        else
+            return this.rows[i].additionalData.alt[i-1];
     }
 }
