@@ -4,7 +4,7 @@ import RCPriorities from './components/RCPriorities.js'
 import {SCREENS, REFINEMENT} from "./enums.js"
 import RCRefinementScreens from './components/RCRefinementScreens.js'
 import $ from './utils/jquery-ajax.js'
-import Restaurants from "./restaurants.js"
+import Restaurants from "./restaurants.ts"
 import deepCopy from "utils/deepCopy";
 import RCResults from "components/RCResults.js";
 

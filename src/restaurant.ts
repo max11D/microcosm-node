@@ -48,8 +48,6 @@ export default class Restaurant {
         let headers = this.configureStatics(parent);
         this.data = new Map<string, any>();
 
-        debugger;
-
         // make sure everything is cast to the correct type, and parse arrays
         headers.forEach((field, i) => {
             if (Restaurant.intFields.includes(i)) {
