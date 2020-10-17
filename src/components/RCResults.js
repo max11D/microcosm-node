@@ -37,7 +37,6 @@ class Results extends React.Component {
                 retval = retval && neighborhoods.includes(row.getNeighborhood());
             }
             for (let i = 0; i < accessibility.length; i++) {
-                console.info(row);
                 if (accessibility[i] === "fully")
                     retval = retval && !!row.getAccessible();
                 if (accessibility[i] === "subway")

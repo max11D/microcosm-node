@@ -65,7 +65,6 @@ export class Result extends React.Component {
 
         seating.map(fx.bind(this, "cyan-pill"));
 
-
         return <div className="search-result card">
             {thumbnail(data)}
             <h3 className="search-result-title">{data.getName()} - {eth} {est}</h3>
