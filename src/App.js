@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 import React from 'react';
 import './App.css';
 import RCPriorities from './components/RCPriorities.js'
@@ -8,13 +10,37 @@ import Restaurants from "./restaurants.ts"
 import deepCopy from "utils/deepCopy";
 import RCResults from "components/RCResults.js";
 
+const PATH_STEP_MAP = {
+  "/restaurants/search": SCREENS.SEARCH,
+  "/restaurants/view": SCREENS.VIEW
+};
+
 class App extends React.Component {
+  parseRefinementsFromURL() {
+    var refinements = {cuisines: {}, neighborhoods: {}, accessibility: {}};
+
+    window.location.search.replace("?", "").split("&").forEach((x) => {
+      let y = x.split("=");
+      var k = y[0], v = y[1];
+      refinements[k] = {};
+
+      if (v) {
+        v.split(",").forEach((x) => {
+          refinements[k][x] = true;
+        });
+      }
+    });
+    
+    return refinements;
+  }
+
   constructor(props) {
     super(props);
+
     this.state = {
-      step: SCREENS.PRIORITIES,
+      step: PATH_STEP_MAP[window.location.pathname] || SCREENS.PRIORITIES,
       refinementScreen: REFINEMENT.NONE,
-      refinements: {cuisines: {}, neighborhoods: {}, accessibility: {}},
+      refinements: this.parseRefinementsFromURL(),
       restaurants: null
     }
   }
@@ -43,14 +69,66 @@ class App extends React.Component {
     this.setState({refinements: ns});
   }
 
+  onPopState(event) {
+    this.setState({
+      step: PATH_STEP_MAP[window.location.pathname] || SCREENS.PRIORITIES,
+      refinements: this.parseRefinementsFromURL()
+    });
+  }
+
   componentDidMount() {
     $.get("/data/restaurants_recoded.csv", function(data) {
       let r = new Restaurants(data);
-      console.info(r);
       this.setState({restaurants: r});
     }.bind(this))
 
     document.getElementById("body").style["min-height"] = window.outerHeight + "px";
+
+    window.onpopstate = this.onPopState.bind(this);
+  }
+
+  calculateURL() {
+    let s = this.state.step;
+    if (s === SCREENS.PRIORITIES) {
+      return "/find-some-food";
+    } else if (s === SCREENS.SEARCH || s === SCREENS.REFINE) {
+      let retval = "/restaurants/search";
+      var refinements = this.state.refinements;
+
+      let params = Object.entries(refinements).map((rmnt) => {
+        let rv =  Object.entries(rmnt[1]).map((x) => { return x[0]; });
+        if (rv.length > 0) 
+          return rmnt[0] + "=" + rv.join(",");
+        else
+          return null;
+      }).filter((x) => { return !!x; });
+        
+      if (params.length > 0) {
+        retval += "?" + params.join("&");
+      }
+
+      if (s === SCREENS.REFINE) {
+        retval += "#"+s;
+      }
+
+      return retval;
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.step !== SCREENS.REFINE) {
+      let newURL = this.calculateURL();
+
+      if (window.location.pathname + window.location.search !== newURL) {
+        let s = deepCopy(this.state);
+
+        history.pushState({
+          step: s.step,
+          refinementScreen: s.refinementScreen,
+          refinements: s.refinements
+        }, "Microcosm", newURL);
+      }
+    }
   }
 
   getSnapshotBeforeUpdate() {
@@ -60,10 +138,6 @@ class App extends React.Component {
     else
       footer.classList.remove("hidden");
     return null;
-  }
-
-  componentDidUpdate() {
-    //NO-OP
   }
 
   render() {
@@ -89,10 +163,10 @@ class App extends React.Component {
         onClear={this.onClear.bind(this)}
         neighborhoods={this.state.restaurants.neighborhoods}/>;
     } else if (this.state.step === SCREENS.SEARCH) {
-      view = <RCResults 
+      view = this.state.restaurants ? <RCResults 
         restaurants={this.state.restaurants} 
         refinements={this.state.refinements}
-        viewRefinement={viewRefinement}/>;
+        viewRefinement={viewRefinement}/> : null;
     }
 
     /*if (this.state.restaurants) 

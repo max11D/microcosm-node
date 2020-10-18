@@ -1,3 +1,3 @@
-const FIELD_RECODES = {"cuisines":["Afghan","American","Bengali","Chinese","Eastern European","Halal Cart","Indian","Italian","Japanese","Korean","Latin","Malaysian","Mexican","Thai","Vietnamese"],"diets":["Halal","Kosher","Vegan","Vegan Friendly","Vegetarian","Vegetarian Friendly"],"establishment_types":["Bakery","Bar","Bodega/Convenience Store","Cafe","Food Cart/Truck","Restaurant","Supermarket","Take-out"]};
+const FIELD_RECODES = {"cuisines":["Afghan","American","Bengali","Chinese","Eastern European","Halal Cart","Indian","Italian","Japanese","Korean","Latin","Malaysian","Thai","Vietnamese"],"diets":["Halal","Kosher","Vegan","Vegan Friendly","Vegetarian","Vegetarian Friendly"],"establishment_types":["Bakery","Bar","Cafe","Food Cart/Truck","Grocery Store","Restaurant","Supermarket","Take-out"]}
 
 export default FIELD_RECODES;

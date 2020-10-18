@@ -11,12 +11,12 @@ export default class Restaurant {
     additionalAltText: Array<string> = new Array<string>();
 
     configureStatics(parent: any) : Array<string>{
-        if (Restaurant.headers.length == 0)
+        if (Restaurant.headers.length === 0)
             Restaurant.headers = parent.headers;
 
         let headers = Restaurant.headers;
 
-        if (Restaurant.intFields.length == 0) {
+        if (Restaurant.intFields.length === 0) {
             Restaurant.intFields = [
                 headers.indexOf("Ethnicity"), 
                 headers.indexOf("Rating"),
@@ -25,14 +25,14 @@ export default class Restaurant {
             ]
         }
 
-        if (Restaurant.intArrFields.length == 0) {
+        if (Restaurant.intArrFields.length === 0) {
             Restaurant.intArrFields = [
                 headers.indexOf("Dietary Restrictions"),
                 headers.indexOf("Establishment Type")
             ];
         }
 
-        if (Restaurant.strArrFields.length == 0) {
+        if (Restaurant.strArrFields.length === 0) {
             Restaurant.strArrFields = [
                 headers.indexOf("Seating"),
                 headers.indexOf("Good For"),
@@ -92,7 +92,7 @@ export default class Restaurant {
     getName(): string { return this.data.get("Name"); }
     getAddress(): string { return this.data.get("Address"); }
     getSeating(): Array<string> { return this.data.get("Seating"); }
-    getAccessible(): boolean { return this.data.get("Accessible") == "Y"; }
+    getAccessible(): boolean { return this.data.get("Accessible") === "Y"; }
     getAccessibleSubway(): string { return this.data.get("Accessible Subway"); }
     getRating(): number { return this.data.get("Rating"); }
     getPrice(): number { return this.data.get("Price"); }
@@ -126,7 +126,7 @@ export default class Restaurant {
 
     isCashOnly(): boolean {
         let x = this.getPaymentMethods();
-        return x.length == 1 && x[0] == "Cash";
+        return x.length === 1 && x[0] === "Cash";
     }
 
     getZipCode(): string {
@@ -148,7 +148,7 @@ export default class Restaurant {
     }
 
     getAlt(i: number): string {
-        if (i == 0)
+        if (i === 0)
             return this.getFirstImageAlt();
         else if (i > 0) {
             if (this.additionalAltText.length > i-1)
