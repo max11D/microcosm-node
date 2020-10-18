@@ -81,7 +81,7 @@ export default class Restaurant {
         });
     }
 
-    getEstablishmentType(raw: boolean = false): string {
+    getEstablishmentType(raw: boolean = false): string[] {
         if (raw)
             return this.data.get("Establishment Type");
         return this.data.get("Establishment Type").map((x: number) => {
@@ -90,6 +90,9 @@ export default class Restaurant {
     }
 
     getName(): string { return this.data.get("Name"); }
+    getURLSafeName(): string {
+        return this.getName().replace(/[^0-9\sa-zA-Z]+/g, "").trim().replace(/\s+/g, "-").toLowerCase();
+    }
     getAddress(): string { return this.data.get("Address"); }
     getSeating(): Array<string> { return this.data.get("Seating"); }
     getAccessible(): boolean { return this.data.get("Accessible") === "Y"; }
@@ -158,5 +161,31 @@ export default class Restaurant {
         } else {
             return "";
         }
+    }
+
+    getThumbnailURL() : string {
+        return "/images/restaurants/" + this.getURLSafeName() + "/thumb.jpg";
+    }
+
+    getImageURL(n : number) : string {
+        if (n < 0)
+            n = 0;
+        if (n > this.getImageCount()){} // TODO return placeholder image
+        
+        let name = this.getURLSafeName(), num = String(n+1).padStart(2, "0");
+        return "/images/restaurants/" + name + "/" + num + ".jpg";
+    }
+
+    getAllImageURLs() : string[] {
+        let retval: string[] = [];
+        let m = this.getImageCount();
+        for (let i = 0; i < m; i++) {
+            retval.push(this.getImageURL(i));
+        }
+        return retval;
+    }
+
+    getAdditionalAltURL() : string {
+        return "/images/restaurants/" + this.getURLSafeName() + "/alt.txt";
     }
 }

@@ -1,0 +1,47 @@
+@import "colors.scss";
+@import "fonts.scss";
+
+.modal-hider {
+    position: fixed;
+    z-index: 15;
+    top: 49px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    overflow: scroll;
+    display: none;
+    padding: 0.5em;
+}
+
+.modal-hider.visible {
+    display: block;
+}
+
+.modal-close {
+    float: right;
+    font-size: 1.5em;
+    margin-top: -0.2em;
+    margin-bottom: -0.5em;
+    margin-left: 0.25em;
+}
+
+.modal-container {
+    background-color: $cream;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
+.restaurant-view-header {
+    margin: 0.25em 0;
+}
+
+.restaurant-view-address {
+    font-family: $body-font-bold;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.restaurant-view-description {
+    margin-top: 0;
+}

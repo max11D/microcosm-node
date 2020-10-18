@@ -47,7 +47,7 @@ class Results extends React.Component {
         }.bind(this));
 
         let retval = results.map(function(r,i){
-            return <Result key={"result_"+i} data={r}/>;
+            return <Result key={"result_"+i} data={r} onViewDetails={this.props.onViewDetails}/>;
         }.bind(this));
 
         var vR = this.props.viewRefinement;

@@ -41,6 +41,7 @@
     border: 1px solid $charcoal;
     border-radius: 3px;
     z-index: 10;
+    margin-bottom: 0.5rem;
 }
   
 .access-icon {
@@ -69,6 +70,55 @@ div.search-result-image {
     width: 100%;
     padding-top: 66%;
     background-color: #ddd;
+}
+
+.hide-overflow {
+    overflow: hidden !important;
+}
+
+.rating-container {
+    position: absolute;
+    bottom: -8px;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
+
+.rating-star {
+    position: absolute;
+    background-image: url("/images/stars-01.png");
+    background-size: cover;
+    background-position: center;
+    padding: 18px;
+    display:inline-block;
+    bottom: 0;
+}
+
+.rating-star + .rating-star {
+    background-position-x: 0%;
+}
+.rating-star + .rating-star + .rating-star {
+    background-position-x: 100%;
+    z-index: 2;
+}
+
+.rating-star:nth-child(1) {
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 4;
+}
+
+.rating-star:nth-child(2) {
+    right: 50%;
+    transform: translate(-0%, 20%);
+    z-index: 1;
+}
+
+.rating-star:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    transform: translate(0%, 20%);
+    z-index: 1;
 }
 
 @media (max-width: 360px) {

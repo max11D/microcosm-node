@@ -16,6 +16,16 @@ function AccIcon(props) {
 function thumbnail(data) {
     let img = null;
 
+    let ratingInner = [];
+
+    for (var i = data.getRating(); i > 0; i--) {
+        ratingInner.push(<div className="rating-star" key={i}></div>)
+    }
+
+    let rating = <div className="rating-container">
+        {ratingInner}
+    </div>
+
     if (data.hasImage()) {
         let path = "/images/restaurants/" + nameToSafeURL(data.getName()) + "/thumb.jpg";
         img = <img className="search-result-image" src={path} alt={data.getFirstImageAlt()}/>
@@ -25,6 +35,7 @@ function thumbnail(data) {
     return <div className="search-result-image-container">
         {data.getAccessible() ? <AccIcon gold={data.getAccessibleSubway()}/> : null}    
         {img}
+        {rating}
     </div>
 }
 
@@ -73,7 +84,11 @@ export class Result extends React.Component {
             </p>
             <span style={{ fontSize: "0.80em" }}>{pills}</span>
             <hr />
-            <div className="search-result-details"><b>View Details</b></div>
+            <div className="search-result-details" onClick={this.onClick.bind(this)}><b>View Details</b></div>
         </div>;
+    }
+
+    onClick(e) {
+        this.props.onViewDetails(this.props.data.getName());
     }
 }

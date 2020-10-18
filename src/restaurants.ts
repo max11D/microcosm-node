@@ -26,9 +26,11 @@ export default class Restaurants {
     }
 
     get(name: string): Restaurant | null {
-        for (let i = this.rows.length - 1; i >= 0; i--) {
-            if (this.rows[i].getName() === name)
+        for (let i = this.rows.length - 2; i >= 0; i--) {
+            // TODO the last row is null and needs to be fixed
+            if (this.rows[i].getName() === name) {
                 return this.rows[i];
+            }
         }
         return null;
     }

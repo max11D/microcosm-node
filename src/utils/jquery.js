@@ -17,7 +17,7 @@
  * Date: 2014-09-28T01:23Z
  */
 
-(function( global, factory ) {
+let jQuery = (function( global, factory ) {
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 		// For CommonJS and CommonJS-like environments where a proper window is present,
@@ -8320,4 +8320,4 @@ return jQuery;
 
 }));
 
-//export default $;
+export default $;

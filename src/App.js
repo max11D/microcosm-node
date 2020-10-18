@@ -5,10 +5,11 @@ import './App.css';
 import RCPriorities from './components/RCPriorities.js'
 import {SCREENS, REFINEMENT} from "./enums.js"
 import RCRefinementScreens from './components/RCRefinementScreens.js'
-import $ from './utils/jquery-ajax.js'
+import $ from './utils/jquery.js'
 import Restaurants from "./restaurants.ts"
 import deepCopy from "utils/deepCopy";
 import RCResults from "components/RCResults.js";
+import RCRestaurantView from "components/RCRestaurantView";
 
 const PATH_STEP_MAP = {
   "/restaurants/search": SCREENS.SEARCH,
@@ -30,8 +31,18 @@ class App extends React.Component {
         });
       }
     });
-    
+
     return refinements;
+  }
+
+  decodeHash() {
+    let view = window.location.hash.split("#view=")[1] || null;
+
+    if (view) {
+      view = decodeURIComponent(view);
+    }
+
+    return view;
   }
 
   constructor(props) {
@@ -41,8 +52,15 @@ class App extends React.Component {
       step: PATH_STEP_MAP[window.location.pathname] || SCREENS.PRIORITIES,
       refinementScreen: REFINEMENT.NONE,
       refinements: this.parseRefinementsFromURL(),
-      restaurants: null
+      restaurants: null,
+      restaurantView: this.decodeHash()
     }
+
+    console.warn(this.state);
+  }
+
+  onCloseModal() {
+    this.setState({restaurantView: null});
   }
 
   setSearchView(step, refinementScreen, refinements) {
@@ -70,9 +88,19 @@ class App extends React.Component {
   }
 
   onPopState(event) {
+    this.statePopped = true;
+
+    let restaurantView = this.decodeHash();
+    
+    if (restaurantView)
+      document.getElementsByTagName("body")[0].classList.add("hide-overflow");
+    else
+      document.getElementsByTagName("body")[0].classList.remove("hide-overflow");
+
     this.setState({
       step: PATH_STEP_MAP[window.location.pathname] || SCREENS.PRIORITIES,
-      refinements: this.parseRefinementsFromURL()
+      refinements: this.parseRefinementsFromURL(),
+      restaurantView: restaurantView
     });
   }
 
@@ -96,6 +124,8 @@ class App extends React.Component {
       var refinements = this.state.refinements;
 
       let params = Object.entries(refinements).map((rmnt) => {
+        if (!rmnt[1])
+          return null;
         let rv =  Object.entries(rmnt[1]).map((x) => { return x[0]; });
         if (rv.length > 0) 
           return rmnt[0] + "=" + rv.join(",");
@@ -111,6 +141,10 @@ class App extends React.Component {
         retval += "#"+s;
       }
 
+      if (this.state.restaurantView)
+        retval += "#view="+this.state.restaurantView;
+      else
+        retval += "#";
       return retval;
     }
   }
@@ -119,16 +153,22 @@ class App extends React.Component {
     if (this.state.step !== SCREENS.REFINE) {
       let newURL = this.calculateURL();
 
-      if (window.location.pathname + window.location.search !== newURL) {
+      if (!this.statePopped && window.location.pathname + window.location.search + (window.location.hash||"#") !== newURL) {
         let s = deepCopy(this.state);
 
         history.pushState({
           step: s.step,
           refinementScreen: s.refinementScreen,
-          refinements: s.refinements
+          refinements: s.refinements,
+          restaurantView: s.restaurantView
         }, "Microcosm", newURL);
       }
+
+      this.statePopped = false;
     }
+
+    if (!this.state.restaurantView)
+      document.getElementsByTagName("body")[0].classList.remove("hide-overflow");
   }
 
   getSnapshotBeforeUpdate() {
@@ -138,6 +178,11 @@ class App extends React.Component {
     else
       footer.classList.remove("hidden");
     return null;
+  }
+
+  onViewDetails(name) {
+    this.setState({restaurantView: name});
+    document.getElementsByTagName("body")[0].classList.add("hide-overflow");
   }
 
   render() {
@@ -166,11 +211,14 @@ class App extends React.Component {
       view = this.state.restaurants ? <RCResults 
         restaurants={this.state.restaurants} 
         refinements={this.state.refinements}
-        viewRefinement={viewRefinement}/> : null;
+        viewRefinement={viewRefinement}
+        onViewDetails={this.onViewDetails.bind(this)}/> : null;
     }
 
-    /*if (this.state.restaurants) 
-      debugger;*/
+    var viewData = null;    
+    
+    if (this.state.restaurantView && this.state.restaurants)
+      viewData = this.state.restaurants.get(this.state.restaurantView);
 
     return (
       <div className="App">
@@ -178,7 +226,7 @@ class App extends React.Component {
           Microcosm
         </header>
         {view}
-        
+        <RCRestaurantView data={viewData} onClose={this.onCloseModal.bind(this)}/>
       </div>
     );
   }
