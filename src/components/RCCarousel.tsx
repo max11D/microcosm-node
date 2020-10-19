@@ -4,7 +4,7 @@ import Hammer from "hammerjs"
 type CarouselProps = {
     urls: string[],
     alts: string[],
-    className?: string | undefined
+    className?: string
 };
 
 type CarouselState = {
@@ -42,6 +42,13 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
 
     }
 
+    onThumbnailClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+        let n = parseInt(e.currentTarget.getAttribute("data-value") || "");
+        
+        if (n >= 0)
+            this.setState({currentImage: n});
+    }
+
     render() {
         var urls: string[], alts: string[];
 
@@ -58,14 +65,33 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
 
         let translation = "translate(-" + (100.0 * this.state.currentImage / urls.length) + "%, 0)"
 
-        return <div id={this.state.instanceUID} className={(this.props.className || "") + " carousel-outer"}>
-            <div className="carousel-inner" style={{width: innerWidthPct, transform: translation}}>
+        return <div className={(this.props.className || "") + " carousel-outer"}>
+            <div id={this.state.instanceUID} 
+                className="carousel-inner" 
+                style={{width: innerWidthPct, transform: translation}}>
+
                 {urls.map(function(this: RCCarousel, url: string, index: number) {
-                    return <div className="carousel-image-frame" style={{width: imgWidthPct, paddingBottom: imgWidthPct}}>
+                    return <div className="carousel-image-frame" 
+                        style={{width: imgWidthPct, paddingBottom: imgWidthPct}}>
+                            
                         <img src={url} alt={alts[index]} 
                             className="carousel-image"/>
                         </div>
                     
+                }.bind(this))}
+            </div>
+
+            <div className="carousel-thumbnail-container">
+                {urls.map(function(this: RCCarousel, url: string, index: number) {
+                    let isActive = (index === this.state.currentImage ? "active" : "");
+                    
+                    return <img 
+                        src={url} 
+                        key={index} 
+                        alt={"Thumbnail "+(index+1)} 
+                        data-value={index}
+                        className={"carousel-thumbnail "+isActive} 
+                        onClick={this.onThumbnailClick.bind(this)}/>
                 }.bind(this))}
             </div>
         </div>
