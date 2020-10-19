@@ -4,10 +4,10 @@ import React from 'react';
 import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import FIELD_RECODES from "fieldRecodes.js"
-import { Result } from './Result';
+import RCResult from './RCResult';
 import ACCESSIBILITY_CODES from "accessibilityCodes.js";
 
-class Results extends React.Component {
+export default class RCResults extends React.Component {
     render() {
         var refinements = this.props.refinements;
         var cuisines = [], neighborhoods = [], accessibility = [];
@@ -47,7 +47,7 @@ class Results extends React.Component {
         }.bind(this));
 
         let retval = results.map(function(r,i){
-            return <Result key={"result_"+i} data={r} onViewDetails={this.props.onViewDetails}/>;
+            return <RCResult key={"result_"+i} data={r} onViewDetails={this.props.onViewDetails}/>;
         }.bind(this));
 
         var vR = this.props.viewRefinement;
@@ -65,5 +65,3 @@ class Results extends React.Component {
         return retval;
     }
 }
-
-export default Results;
