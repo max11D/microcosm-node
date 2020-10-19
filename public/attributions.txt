@@ -1,0 +1,20 @@
+SOFTWARE TEAMS
+    React
+    Node.js
+    NPM
+    TypeScript
+    DefinitelyTyped
+    SASS
+    jQuery
+    Hammer.js
+CODE SNIPPETS
+    CSVToArray by Ben Nadel: https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
+    deepCopy by Dr. Derek Austin: https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
+ASSETS
+    "website" icon by crywill from the Noun Project
+    "Phone" icon by Desbenoit from the Noun Project
+    "gold" texture by Jocelyn Sun
+REVIEWERS
+    Alex Lee
+    Dhrupad Mamun
+    Neil Purohit
