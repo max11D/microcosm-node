@@ -1,8 +1,8 @@
+@import "colors.scss";
 
 .carousel-outer {
     width: 100%;
-    height: 0;
-    padding-bottom: 100%;
+    padding-top: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -29,4 +29,26 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.carousel-thumbnail-container {
+    text-align: center;
+    padding-top: 4px;
+}
+
+.carousel-thumbnail {
+    max-width: 40px;
+    max-height: 40px;
+    border: 4px solid transparent;
+    border-radius: 8px;
+    transition: border-color 100ms ease-in-out;
+    vertical-align: top;
+}
+
+.active.carousel-thumbnail {
+    border-color: $orange;
+}
+
+.carousel-thumbnail+.carousel-thumbnail {
+    margin-left: 6px;
 }
