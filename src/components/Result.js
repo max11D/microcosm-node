@@ -1,5 +1,6 @@
 import React from 'react';
 import nameToSafeURL from 'utils/nameToSafeURL'
+import RCPrice from "./RCPrice";
 
 function AccIcon(props) {
     let c = "access-icon", alt="Wheelchair Icon";
@@ -80,7 +81,7 @@ export class Result extends React.Component {
             {thumbnail(data)}
             <h3 className="search-result-title">{data.getName()} - {eth} {est}</h3>
             <p className="search-result-description">
-                <b>{data.getNeighborhood()}</b> - {data.getDescription()}
+                <RCPrice price={data.getPrice()}/> &mdash; <b>{data.getNeighborhood()}</b><br/>{data.getDescription()}
             </p>
             <span style={{ fontSize: "0.80em" }}>{pills}</span>
             <hr />

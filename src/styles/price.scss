@@ -1,0 +1,13 @@
+@import "fonts.scss";
+@import "colors.scss";
+
+.price-outer {
+    line-break: strict;
+    font-family: $body-font-bold;
+    color: $charcoal;
+}
+
+.price-inner {
+    font-family: $body-font;
+    color: darkgray;
+}

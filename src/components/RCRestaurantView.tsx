@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Restaurant from "../restaurant";
 import jQuery from "../utils/jquery";
 import RCCarousel from "./RCCarousel"
+import RCPrice from "./RCPrice";
 
 type jQuery = any;
 
@@ -57,7 +58,9 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                             {data.getAddress()}
                         </a>
                         </p>
-                    <p className="restaurant-view-description">{data.getDescription()}</p>
+                    <p className="restaurant-view-description">
+                        <RCPrice price={data.getPrice()}/> &mdash; {data.getDescription()}
+                    </p>
                 </div>
             </div>
         } else {
