@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-bind */
 import React, {Component} from "react";
 import Hammer from "hammerjs"
 
@@ -71,7 +72,7 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
                 style={{width: innerWidthPct, transform: translation}}>
 
                 {urls.map(function(this: RCCarousel, url: string, index: number) {
-                    return <div className="carousel-image-frame" 
+                    return <div className="carousel-image-frame" key={index}
                         style={{width: imgWidthPct, paddingBottom: imgWidthPct}}>
                             
                         <img src={url} alt={alts[index]} 

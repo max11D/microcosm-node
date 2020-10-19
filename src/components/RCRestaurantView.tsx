@@ -53,7 +53,7 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     </h2>
                     <RCCarousel urls={data.getAllImageURLs()} alts={this.allAltText()}/>
                     <p className="restaurant-view-address">
-                        <a href={"https://maps.google.com/maps?q="+name + ' ' + data.getAddress()} target="_blank">
+                        <a rel="noopener noreferrer" href={"https://maps.google.com/maps?q="+name + ' ' + data.getAddress()} target="_blank">
                             {data.getAddress()}
                         </a>
                         </p>
