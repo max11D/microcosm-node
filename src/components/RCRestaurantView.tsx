@@ -3,6 +3,8 @@ import Restaurant from "../restaurant";
 import jQuery from "../utils/jquery";
 import RCCarousel from "./RCCarousel"
 import RCPrice from "./RCPrice";
+import RCRestaurantDataPillBlock from './RCRestaurantDataPillBlock';
+import RCRestaurantLinkBlock from './RCRestaurantLinkBlock';
 
 type jQuery = any;
 
@@ -23,6 +25,23 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
 
     componentDidMount() {
         
+    }
+
+    prepSeatingPills() {
+        if (!this.props.data)
+            return [];
+
+        let seating = this.props.data.getSeating();
+        seating.splice(seating.indexOf("None"));
+        seating = seating.map((x) => {
+            let rv = x;
+            if (rv.includes("Public"))
+                return "Nearby " + rv;
+            else if (rv.match(/(Sidewalk|Indoor|Private)/))
+                return rv + " Seating";
+            return rv;
+        });
+        return seating;
     }
 
     componentDidUpdate(prevProps: RestaurantViewProps, prevState: RestaurantViewState) {
@@ -61,6 +80,12 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     <p className="restaurant-view-description">
                         <RCPrice price={data.getPrice()}/> &mdash; {data.getDescription()}
                     </p>
+                    <span style={{ fontSize: "0.80em" }}>
+                        <RCRestaurantDataPillBlock restaurant={data}/>
+                    </span>
+                    <hr/>
+                    <RCRestaurantLinkBlock restaurant={data}/>
+                    <hr/>
                 </div>
             </div>
         } else {
