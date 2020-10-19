@@ -1,16 +1,19 @@
 import React from 'react';
 import {SCREENS, REFINEMENT} from "../enums.js"
 
-function RCPriorities(props) {
+type PrioritiesProperties = {
+    onClick: (step: number, refinement: number) => void,
+};
+
+export default function RCPriorities(props: PrioritiesProperties) {
     let buttonStyle = {width: "14em"}
-    let containerStyle = {
-        textAlign: "center",
-        padding: "0 1em",
-        maxWidth: "24em",
-        margin: "auto"
-    }
     return (
-        <div style={containerStyle}>
+        <div style={{
+            "textAlign": "center",
+            "padding": "0 1em",
+            "maxWidth": "24em",
+            "margin": "auto"
+        }}>
             <p>
                 The city is one of the most diverse places in the world, 
                 and the food scene reflects that. You don't need to travel 
@@ -42,5 +45,3 @@ function RCPriorities(props) {
         </div>
     )
 }
-
-export default RCPriorities;
