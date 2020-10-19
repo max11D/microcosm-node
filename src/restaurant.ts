@@ -67,6 +67,7 @@ export default class Restaurant {
         });
     }
 
+    // TODO these raw parameters have the type wrong
     getEthnicity(raw: boolean = false): string {
         if (raw)
             return this.data.get("Ethnicity");
@@ -94,18 +95,21 @@ export default class Restaurant {
         return this.getName().replace(/[^0-9\sa-zA-Z]+/g, "").trim().replace(/\s+/g, "-").toLowerCase();
     }
     getAddress(): string { return this.data.get("Address"); }
-    getSeating(): Array<string> { return this.data.get("Seating"); }
+    getSeating(): Array<string> { return this.data.get("Seating").map((x: string) => {return x}); }
     getAccessible(): boolean { return this.data.get("Accessible") === "Y"; }
     getAccessibleSubway(): string { return this.data.get("Accessible Subway"); }
     getRating(): number { return this.data.get("Rating"); }
     getPrice(): number { return this.data.get("Price"); }
-    getGoodFor(): Array<string> { return this.data.get("Good For"); }
+    getGoodFor(): Array<string> { return this.data.get("Good For").map((x: string) => {return x});; }
     getDescription(): string { return this.data.get("Description"); }
     getImageCount(): number { return this.data.get("Image Count"); }
     getFirstImageAlt(): string { return this.data.get("First Image Alt"); }
-    getPhone(): string { return this.data.get("Phone"); }
-    getWebsite(includeProtocol: boolean = true): string {
-        let retval: string = this.data.get("Name"); 
+    getPhone(): string | null { return this.data.get("Phone"); }
+    getWebsite(includeProtocol: boolean = true): string | null {
+        let retval: string | null = this.data.get("Website"); 
+
+        if (!retval)
+            return null;
 
         if (!retval.includes("http"))
             retval = "https://" + retval;
@@ -115,17 +119,30 @@ export default class Restaurant {
         else
             return retval.replace(/^http(s)?:\/\//, "");
     }
-    getInstagramHandle(): string { return "@" + this.data.get("Instagram"); }
-    getInstagramURL(): string { return "https://www.instagram.com/"+this.data.get("Instagram"); }
-    getFacebookURL(): string {
+    getInstagramHandle(): string | null { 
+        let h = this.data.get("Instagram");
+        if (!h)
+            return null
+        return "@" + h; 
+    }
+    getInstagramURL(): string | null { 
+        let h = this.data.get("Instagram");
+        if (!h)
+            return null;
+        return "https://www.instagram.com/"+h; 
+    }
+    getFacebookURL(): string | null {
         let retval = this.data.get("Facebook");
+        if (!retval)
+            return null;
+
         if (retval.includes("https://"))
             return retval;
         else
             return "https://www.facebook.com/" + retval;
     }
     getDelivery(): boolean { return !!this.data.get("Delivery"); }
-    getPaymentMethods(): Array<string> { return this.data.get("Payment Methods"); }
+    getPaymentMethods(): Array<string> { return this.data.get("Payment Methods").map((x: string) => {return x});; }
 
     isCashOnly(): boolean {
         let x = this.getPaymentMethods();
