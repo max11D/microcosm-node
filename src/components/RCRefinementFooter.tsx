@@ -1,6 +1,12 @@
 import React from 'react';
 
-export default class RefinementFooter extends React.Component {
+type RefinementFooterProps = {
+    onClear: () => void,
+    viewResults: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    resultCount?: number
+}
+
+export default class RCRefinementFooter extends React.Component<RefinementFooterProps, {}> {
     render() {
         return <div className="refinement-footer">
             <button onClick={this.props.onClear} className="clear-filter anchor-style">

@@ -3,7 +3,7 @@ import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import RCNeighborhoodRefinementScreen from './RCNeighborhoodRefinementScreen';
 import RCCuisineRefinementScreen from "./RCCuisineRefinementScreen";
-import RefinementFooter from './RefinementFooter';
+import RefinementFooter from './RCRefinementFooter';
 import RCAccessibilityRefinementScreen from "./RCAccessibilityRefinementScreen.js"
 
 export default class RCRefinementScreens extends React.Component {
