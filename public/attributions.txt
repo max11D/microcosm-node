@@ -14,6 +14,7 @@ ASSETS
     "website" icon by crywill from the Noun Project
     "Phone" icon by Desbenoit from the Noun Project
     "gold" texture by Jocelyn Sun
+    "bottles", "camera", "cans bottles", "fast food", "picnic table" and "scooter" icons by the U.S. National Park Service <3
 REVIEWERS
     Alex Lee
     Dhrupad Mamun
