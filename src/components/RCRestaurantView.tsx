@@ -5,6 +5,7 @@ import RCCarousel from "./RCCarousel"
 import RCPrice from "./RCPrice";
 import RCRestaurantDataPillBlock from './RCRestaurantDataPillBlock';
 import RCRestaurantLinkBlock from './RCRestaurantLinkBlock';
+import RCAccessibilityInfoBlock from "./RCAccessibilityInfoBlock"
 
 type jQuery = any;
 
@@ -82,6 +83,8 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     </p>
                     <span style={{ fontSize: "0.80em" }}>
                         <RCRestaurantDataPillBlock restaurant={data}/>
+                        <hr/>
+                        <RCAccessibilityInfoBlock restaurant={data}/>
                     </span>
                     <hr/>
                     <RCRestaurantLinkBlock restaurant={data}/>
