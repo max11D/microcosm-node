@@ -7,8 +7,8 @@ export default class Restaurant {
     static strArrFields = Array<number>();
     static headers = Array<string>();
 
-    data: Map<string, any>;
-    additionalAltText: Array<string> = new Array<string>();
+    protected data: Map<string, any>;
+    protected additionalAltText: Array<string> = new Array<string>();
 
     configureStatics(parent: any) : Array<string>{
         if (Restaurant.headers.length === 0)
@@ -142,7 +142,7 @@ export default class Restaurant {
             return "https://www.facebook.com/" + retval;
     }
     getDelivery(): boolean { return !!this.data.get("Delivery"); }
-    getPaymentMethods(): Array<string> { return this.data.get("Payment Methods").map((x: string) => {return x});; }
+    getPaymentMethods(): Array<string> { return (this.data.get("Payment Methods") || []).map((x: string) => {return x});; }
 
     isCashOnly(): boolean {
         let x = this.getPaymentMethods();
@@ -167,6 +167,11 @@ export default class Restaurant {
         return this.getImageCount() > 0;
     }
 
+    /**
+     * returns the i'th image alt text
+     * @param i - the image index to which the alt text corresponds to
+     * @returns alt text if it exists and a blank string otherwise
+     *  */ 
     getAlt(i: number): string {
         if (i === 0)
             return this.getFirstImageAlt();

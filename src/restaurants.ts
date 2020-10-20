@@ -1,24 +1,25 @@
 import Restaurant from "./restaurant"
 
 export default class Restaurants {
-    headers: Array<string>;
-    rows: Array<Restaurant>;
-    neighborhoods: Array<string>;
+    readonly headers: Array<string>;
+    protected readonly rows: Array<Restaurant>;
+    readonly neighborhoods: Array<string>;
 
     constructor(rawCSV: string) {
         let csv = rawCSV.split("\n")
         this.headers = csv[0].split(",");
         let length = csv.length-1;
-        this.rows = new Array(length);
+        let rows: Restaurant[] = new Array(length);
         let ns = new Set<string>();
 
         for (let i = 0; i < length-1; i++) {
             let r = new Restaurant(this, csv[i+1]);
-            this.rows[i] = r;   
+            rows[i] = r;   
             ns.add(r.getNeighborhood());
         }
         
         this.neighborhoods = Array.from(ns).sort();
+        this.rows = rows;
     }
 
     filter(fx: (value: Restaurant, index: number, array: Restaurant[]) => boolean) {
