@@ -1,0 +1,16 @@
+span.subway-bullet {
+    display: inline-block;
+    text-align: center;
+    width: 1.5em;
+    height: 1.5em;
+    font-family: sans-serif;
+    padding-top: 0.2em;
+    box-sizing: border-box;
+    border-radius: 50%;
+    font-weight: bolder;
+    line-height: 1.2;
+}
+
+span.subway-bullet+span.subway-bullet{
+    margin-left: 0.25em;
+}
