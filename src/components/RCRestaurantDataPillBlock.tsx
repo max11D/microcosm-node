@@ -8,17 +8,20 @@ type BlockProps = {
 export default class RCRestaurantDataPillBlock extends React.Component<BlockProps, {}> {
     prepSeatingPills() {
         let seating = this.props.restaurant.getSeating();
-        seating.splice(seating.indexOf("None"));
-        seating = seating.map((x) => {
+
+        let idxNone = seating.indexOf("None");
+        
+        if (idxNone >= 0)
+            seating.splice(idxNone);
+
+        return seating.map((x) => {
             let rv = x;
             if (rv.includes("Public"))
                 return "Nearby " + rv;
-            else if (rv.match(/(Sidewalk|Indoor|Private)/))
+            else if (rv.match(/(Sidewalk|Indoor|Private)/i))
                 return rv + " Seating";
             return rv;
         });
-        console.error(seating);
-        return seating;
     }
 
     render() {

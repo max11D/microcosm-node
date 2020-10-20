@@ -28,23 +28,6 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
         
     }
 
-    prepSeatingPills() {
-        if (!this.props.data)
-            return [];
-
-        let seating = this.props.data.getSeating();
-        seating.splice(seating.indexOf("None"));
-        seating = seating.map((x) => {
-            let rv = x;
-            if (rv.includes("Public"))
-                return "Nearby " + rv;
-            else if (rv.match(/(Sidewalk|Indoor|Private)/))
-                return rv + " Seating";
-            return rv;
-        });
-        return seating;
-    }
-
     componentDidUpdate(prevProps: RestaurantViewProps, prevState: RestaurantViewState) {
         if (this.props.data?.getName() !== prevProps.data?.getName()) {
             jQuery.get(this.props.data?.getAdditionalAltURL()).success(function(this: RCRestaurantView, data: string) {
