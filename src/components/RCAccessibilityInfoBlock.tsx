@@ -40,7 +40,7 @@ export default class RCAccessibilityInfoBlock extends React.Component<BlockProps
             subway = <div className="restaurant-access-info-element subway">
                 near accessible station<br/>
                 <b>{preventStringOrphans(s)}</b><br/>
-                <RCSubwayBullet train={bullets}/>
+                <RCSubwayBullet train={bullets} style={{marginTop: "0.2em"}}/>
             </div>
         }
 

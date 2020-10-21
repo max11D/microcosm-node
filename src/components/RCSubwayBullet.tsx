@@ -1,13 +1,16 @@
 import React from 'react';
 
 type BulletProps = {
-    train: string
+    train: string,
+    style?: React.CSSProperties
 }
 
 export default class RCSubwayBullet extends React.Component<BulletProps, {}> {
     render() {
-        if (this.props.train.length > 1) 
-            return this.props.train.split("").map((x,i) => {return <RCSubwayBullet train={x} key={i}/>;});
+        if (this.props.train.length > 1) {
+            var rs = this.props.style;
+            return this.props.train.split("").map((x,i) => {return <RCSubwayBullet train={x} key={i} style={rs}/>;});
+        }
 
         let colors = {
             blue: "0039a6",
@@ -54,6 +57,13 @@ export default class RCSubwayBullet extends React.Component<BulletProps, {}> {
         else if (t.match(/[T]/)) 
             bulletColor = colors.turquoise;
 
-        return <span className="subway-bullet" style={{backgroundColor: "#"+bulletColor, color: textColor}}>{t}</span>;
+        let s: React.CSSProperties = {
+            backgroundColor: "#" + bulletColor, 
+            color: textColor
+        };
+
+
+
+        return <span className="subway-bullet" style={{...s, ...this.props.style}}>{t}</span>;
     }
 }
