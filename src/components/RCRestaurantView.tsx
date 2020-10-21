@@ -49,6 +49,29 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
         if (this.props.data) {
             var data = this.props.data;
             let name = data.getName();
+            let recElements: JSX.Element[] = [], recs = data.getRecommendations();
+            let payMethodElements: JSX.Element[] = [], payMethods = data.getPaymentMethods();
+
+            if (recs.length > 0) {
+                recElements.push(<h3 key="h" style={{margin: "0"}}>Recommendations</h3>)
+                recElements.push(<ul key="l" style={{marginTop: "0.1em"}}>
+                    {recs.map((x: string, i: number) => {
+                        return <li>{x}</li>
+                    })}
+                </ul>);
+            }
+
+            if (payMethods.length > 0) {
+                if (payMethods.length == 1)
+                    payMethods[0] += " Only";
+
+                payMethodElements.push(<h3 key="h" style={{margin: "0"}}>Accepted Payment Methods</h3>);
+                payMethodElements.push(<div>{payMethods.map((x: string, i: number) => {
+                    let s = (i == 0 ? {marginLeft: "0"} : {});
+                    return <div className="pill gray-pill" key={i} style={s}>{x}</div>;
+                })}</div>)
+            }
+
             return <div className="modal-hider visible">
                 <div className="modal-container">
                     <h2 className="restaurant-view-header">
@@ -64,6 +87,7 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     <p className="restaurant-view-description">
                         <RCPrice price={data.getPrice()}/> &mdash; {data.getDescription()}
                     </p>
+                    {recElements}
                     <span style={{ fontSize: "0.80em" }}>
                         <RCRestaurantDataPillBlock restaurant={data}/>
                         <hr/>
@@ -72,6 +96,7 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     <hr/>
                     <RCRestaurantLinkBlock restaurant={data}/>
                     <hr/>
+                    {payMethodElements}
                 </div>
             </div>
         } else {

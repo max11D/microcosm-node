@@ -10,7 +10,7 @@ export default class RCRestaurantDataPillBlock extends React.Component<BlockProp
         let seating = this.props.restaurant.getSeating();
 
         let idxNone = seating.indexOf("None");
-        
+
         if (idxNone >= 0)
             seating.splice(idxNone);
 
@@ -40,6 +40,6 @@ export default class RCRestaurantDataPillBlock extends React.Component<BlockProp
         data.getDietaryRestrictions().map(fx.bind(this, "cyan-pill"));
         this.prepSeatingPills().map(fx.bind(this, "cyan-pill"));
 
-        return pills;
+        return <div className="restaurant-data-pill-block">{pills}</div>;
     }
 }

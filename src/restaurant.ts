@@ -36,6 +36,7 @@ export default class Restaurant {
             Restaurant.strArrFields = [
                 headers.indexOf("Seating"),
                 headers.indexOf("Good For"),
+                headers.indexOf("Recommendations"),
                 headers.indexOf("Payment Methods")
             ]
         }
@@ -105,6 +106,10 @@ export default class Restaurant {
     getImageCount(): number { return this.data.get("Image Count"); }
     getFirstImageAlt(): string { return this.data.get("First Image Alt"); }
     getPhone(): string | null { return this.data.get("Phone"); }
+    /**
+     * Returns the website, including the protocol by default.
+     * @param includeProtocol whether to include the "http[s]://" in the return value
+     */
     getWebsite(includeProtocol: boolean = true): string | null {
         let retval: string | null = this.data.get("Website"); 
 
@@ -119,18 +124,29 @@ export default class Restaurant {
         else
             return retval.replace(/^http(s)?:\/\//, "");
     }
+    /**
+     * Returns ONLY the Instagram handle (including the @)
+     */
     getInstagramHandle(): string | null { 
         let h = this.data.get("Instagram");
         if (!h)
             return null
         return "@" + h; 
     }
+
+    /**
+     * Returns the URL of the instagram profile
+     */
     getInstagramURL(): string | null { 
         let h = this.data.get("Instagram");
         if (!h)
             return null;
         return "https://www.instagram.com/"+h; 
     }
+
+    /**
+     * Returns the Facebook profile page URL
+     */
     getFacebookURL(): string | null {
         let retval = this.data.get("Facebook");
         if (!retval)
@@ -141,8 +157,14 @@ export default class Restaurant {
         else
             return "https://www.facebook.com/" + retval;
     }
+    /**
+     * Whether the restaurant delivers
+     */
     getDelivery(): boolean { return !!this.data.get("Delivery"); }
-    getPaymentMethods(): Array<string> { return (this.data.get("Payment Methods") || []).map((x: string) => {return x});; }
+
+    getPaymentMethods(): Array<string> { 
+        return (this.data.get("Payment Methods") || []).map((x: string) => {return x}); 
+    }
 
     isCashOnly(): boolean {
         let x = this.getPaymentMethods();
@@ -209,5 +231,12 @@ export default class Restaurant {
 
     getAdditionalAltURL() : string {
         return "/images/restaurants/" + this.getURLSafeName() + "/alt.txt";
+    }
+
+    /**
+     * Gets recommended items, split on commas.
+     */
+    getRecommendations() : string[] {
+        return this.data.get("Recommendations").map((x: string) => {return x;}) || []
     }
 }

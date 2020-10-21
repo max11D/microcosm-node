@@ -7,7 +7,7 @@ export default class Restaurants {
 
     constructor(rawCSV: string) {
         let csv = rawCSV.split("\n")
-        this.headers = csv[0].split(",");
+        this.headers = csv[0].trim().split(",");
         let length = csv.length-1;
         let rows: Restaurant[] = new Array(length);
         let ns = new Set<string>();
