@@ -63,12 +63,12 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
             }
 
             if (payMethods.length > 0) {
-                if (payMethods.length == 1)
+                if (payMethods.length === 1)
                     payMethods[0] += " Only";
 
                 payMethodElements.push(<h3 key="h" style={{margin: "0"}}>Accepted Payment Methods</h3>);
                 payMethodElements.push(<div>{payMethods.map((x: string, i: number) => {
-                    let s = (i == 0 ? {marginLeft: "0"} : {});
+                    let s = (i === 0 ? {marginLeft: "0"} : {});
                     return <div className="pill gray-pill" key={i} style={s}>{x}</div>;
                 })}</div>)
             }
