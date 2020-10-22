@@ -6,6 +6,7 @@ import RCPrice from "./RCPrice";
 import RCRestaurantDataPillBlock from './RCRestaurantDataPillBlock';
 import RCRestaurantLinkBlock from './RCRestaurantLinkBlock';
 import RCAccessibilityInfoBlock from "./RCAccessibilityInfoBlock"
+import RCSupportSmallBusinesses from "./RCSupportSmallBusinesses"
 
 type jQuery = any;
 
@@ -97,6 +98,8 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
                     <RCRestaurantLinkBlock restaurant={data}/>
                     <hr/>
                     {payMethodElements}
+                    <RCSupportSmallBusinesses/>
+                    {!!this.props.onClose ? <button onClick={this.props.onClose} className="modal-close-footer">hide details</button> : null }
                 </div>
             </div>
         } else {
