@@ -66,23 +66,10 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
 
         let translation = "translate(-" + (100.0 * this.state.currentImage / urls.length) + "%, 0)"
 
-        return <div className={(this.props.className || "") + " carousel-outer"}>
-            <div id={this.state.instanceUID} 
-                className="carousel-inner" 
-                style={{width: innerWidthPct, transform: translation}}>
+        let thumbnails: JSX.Element | null = null;
 
-                {urls.map(function(this: RCCarousel, url: string, index: number) {
-                    return <div className="carousel-image-frame" key={index}
-                        style={{width: imgWidthPct, paddingBottom: imgWidthPct}}>
-                            
-                        <img src={url} alt={alts[index]} 
-                            className="carousel-image"/>
-                        </div>
-                    
-                }.bind(this))}
-            </div>
-
-            <div className="carousel-thumbnail-container">
+        if (urls.length > 1) {
+            thumbnails = <div className="carousel-thumbnail-container">
                 {urls.map(function(this: RCCarousel, url: string, index: number) {
                     let isActive = (index === this.state.currentImage ? "active" : "");
                     
@@ -95,6 +82,29 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
                         onClick={this.onThumbnailClick.bind(this)}/>
                 }.bind(this))}
             </div>
+        }
+
+        return <div className={(this.props.className || "") + " carousel-outer"}>
+            <div id={this.state.instanceUID} 
+                className="carousel-inner" 
+                style={{width: innerWidthPct, transform: translation}}>
+
+                {urls.map(function(this: RCCarousel, url: string, index: number) {
+                    let imageCredit = "";
+                    if (alts[index] && alts[index].match(/Image\sCredit:\s/))
+                        imageCredit = alts[index].split("Image Credit: ")[1];
+                    return <div className="carousel-image-frame" key={index}
+                        style={{width: imgWidthPct, paddingBottom: imgWidthPct}}>
+                            
+                        <img src={url} alt={alts[index]} 
+                            className="carousel-image"/>
+                        {imageCredit ? <span className="carousel-image-credit">{imageCredit}</span> : null}
+                        </div>
+                    
+                }.bind(this))}
+            </div>
+
+            {thumbnails}
         </div>
     }
 }
