@@ -30,17 +30,15 @@ export default class RCCarousel extends Component<CarouselProps, CarouselState> 
                 if (i >= this.props.urls.length)
                     i = this.props.urls.length - 1;
                 this.setState({currentImage: i});
-            }.bind(this))
+            }.bind(this));
             
             hammertime.on("swiperight", function(this: RCCarousel) {
                 let i = this.state.currentImage - 1;
                 if (i < 0)
                     i = 0;
                 this.setState({currentImage: i});
-            }.bind(this))
+            }.bind(this));
         }
-        
-
     }
 
     onThumbnailClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
