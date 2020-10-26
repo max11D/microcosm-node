@@ -66,6 +66,8 @@ export default class Restaurant {
                 this.data.set(field, row[i] || "");
             }
         });
+
+        this.data.set("slug", this.getName().replace(/[^0-9\sa-zA-Z]+/g, "").trim().replace(/\s+/g, "-").toLowerCase());
     }
 
     // TODO these raw parameters have the type wrong
@@ -92,8 +94,8 @@ export default class Restaurant {
     }
 
     getName(): string { return this.data.get("Name"); }
-    getURLSafeName(): string {
-        return this.getName().replace(/[^0-9\sa-zA-Z]+/g, "").trim().replace(/\s+/g, "-").toLowerCase();
+    getURLSlug(): string {
+        return this.data.get("slug");
     }
     getAddress(): string { return this.data.get("Address"); }
     getSeating(): Array<string> { return this.data.get("Seating").map((x: string) => {return x}); }
@@ -208,7 +210,7 @@ export default class Restaurant {
     }
 
     getThumbnailURL() : string {
-        return "/images/restaurants/" + this.getURLSafeName() + "/thumb.jpg";
+        return "/images/restaurants/" + this.getURLSlug() + "/thumb.jpg";
     }
 
     getImageURL(n : number) : string {
@@ -216,7 +218,7 @@ export default class Restaurant {
             n = 0;
         if (n > this.getImageCount()){} // TODO return placeholder image
         
-        let name = this.getURLSafeName(), num = String(n+1).padStart(2, "0");
+        let name = this.getURLSlug(), num = String(n+1).padStart(2, "0");
         return "/images/restaurants/" + name + "/" + num + ".jpg";
     }
 
@@ -230,7 +232,7 @@ export default class Restaurant {
     }
 
     getAdditionalAltURL() : string {
-        return "/images/restaurants/" + this.getURLSafeName() + "/alt.txt";
+        return "/images/restaurants/" + this.getURLSlug() + "/alt.txt";
     }
 
     /**

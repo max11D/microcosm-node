@@ -21,7 +21,7 @@ export default class RCRefinementFooter extends React.Component<ThumbnailProps, 
         </div>
 
         if (data.hasImage()) {
-            let path = "/images/restaurants/" + data.getURLSafeName() + "/thumb.jpg";
+            let path = "/images/restaurants/" + data.getURLSlug() + "/thumb.jpg";
             img = <img className="search-result-image" src={path} alt={data.getFirstImageAlt()}/>
         } else {
             img = <div className="search-result-image"/>
