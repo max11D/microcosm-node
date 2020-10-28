@@ -2,7 +2,7 @@ import React from 'react';
 import {SCREENS, REFINEMENT} from "../enums.js"
 
 type PrioritiesProperties = {
-    onClick: (step: number, refinement: number) => void,
+    onClick: (step: number, refinement: number, _: string | undefined) => void,
 };
 
 export default function RCPriorities(props: PrioritiesProperties) {
@@ -20,12 +20,12 @@ export default function RCPriorities(props: PrioritiesProperties) {
                 far for a new&nbsp;experience.
             </p>
             <button style={buttonStyle} className="orange" 
-                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.CUISINE)}}>
+                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.CUISINE, undefined)}}>
                     filter by cuisine
             </button>
             <p>That said, we all have lazy days.</p>
             <button style={buttonStyle} className="orange"
-                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.NEIGHBORHOOD)}}>
+                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.NEIGHBORHOOD, undefined)}}>
                     filter by neighborhood
             </button>
             <p>
@@ -34,12 +34,12 @@ export default function RCPriorities(props: PrioritiesProperties) {
                 dietary restrictions and accessibility demands.
             </p>
             <button style={buttonStyle} className="cyan"
-                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.DIET)}}>
+                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.DIET, undefined)}}>
                     filter by diet
             </button>
             <br/><br/>
             <button style={buttonStyle} className="cyan"
-                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.ACCESSIBILITY)}}>
+                onClick={() => {props.onClick(SCREENS.REFINE, REFINEMENT.ACCESSIBILITY, undefined)}}>
                 find accessible options
             </button>
         </div>

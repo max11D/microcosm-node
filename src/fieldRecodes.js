@@ -1,3 +1,0 @@
-const FIELD_RECODES = {"cuisines":["Afghan","American","Bengali","Chinese","Colombian","Creole","Eastern European","Halal Cart","Indian","Italian","Jamaican","Japanese","Korean","Latin","Malaysian","Mexican","Thai","Venezuelan","Vietnamese"],"diets":["Halal","Kosher","Vegan","Vegan Friendly","Vegetarian","Vegetarian Friendly"],"establishment_types":["Bakery","Bar","Cafe","Food Cart/Truck","Grocery Store","Restaurant","Supermarket","Take-out"]};
-
-export default FIELD_RECODES;

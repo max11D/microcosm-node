@@ -55,15 +55,44 @@ csv.each_with_index do |row, i|
     f << row.to_s
 end
 
+def constantify(x) 
+    x.upcase.gsub(/[^a-zA-Z]+/, "_")
+end
+
+def enumify(name, arr)
+    s = ""
+    s << "export enum #{name} {\n"
+
+    arr.each do |c|
+        s << "\t" << constantify(c) << " = " << c.inspect << ",\n"
+    end
+
+    s << "};\n\n"
+
+    s << "export const #{name}Map: { [key: string]: #{name}; } = {"
+
+    arr.each do |c| 
+        s << "\t\"#{c}\": #{name}.#{constantify(c)},\n" 
+    end
+
+    s << "}\n\n";
+
+    return s.gsub(",\n}", "\n}")
+end
+
 f.close
 
-f = File.open("restaurants_codes.json", "w+")
+f = File.open("restaurants_codes.ts", "w+")
 
-f << {
-    cuisines: cuisines,
-    diets: diets,
-    establishment_types: types
-}.to_json
+# f << {
+#     cuisines: cuisines,
+#     diets: diets,
+#     establishment_types: types
+# }.to_json
+
+f << enumify("Cuisines", cuisines)
+f << enumify("Diets", diets)
+f << enumify("EstablishmentTypes", types)
 
 f.close
 

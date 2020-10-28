@@ -1,5 +1,5 @@
 import CSVToArray from "./utils/CSVToArray";
-import FIELD_RECODES from "./fieldRecodes.js"
+import { FIELD_RECODES } from "./fieldRecodes"
 
 export default class Restaurant {
     static intFields = Array<number>();

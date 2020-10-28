@@ -1,46 +1,47 @@
 import React from 'react';
 import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
-import RCNeighborhoodRefinementScreen from './RCNeighborhoodRefinementScreen';
 import RCCuisineRefinementScreen from "./RCCuisineRefinementScreen";
 import RefinementFooter from './RCRefinementFooter';
-import RCAccessibilityRefinementScreen from "./RCAccessibilityRefinementScreen.js"
+import RCAccessibilityRefinementScreen from "./RCAccessibilityRefinementScreen"
+import RestaurantSearch from '../restaurantSearch';
+import RCNeighborhoodRefinementScreen from './RCNeighborhoodRefinementScreen';
 
-export default class RCRefinementScreens extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { tagMatcher: "" }
-    }
+type RefinementScreenProps = {
+    currentRefinement: number,
+    restaurantSearch: RestaurantSearch,
+    onTick: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    neighborhoods: string[],
+    onClear: (s: string) => void,
+    viewResults: () => void
+}
 
-    onTextUpdate(e) {
-        this.setState({tagMatcher: e.target.value})
-    }
-
+export default class RCRefinementScreens extends React.Component<RefinementScreenProps, {}> {
     render() {
         let retval = null;
 
         var clearFx = this.props.onClear;
-        var boundClearFx = null;
+        var boundClearFx: null | (() => void) = null;
 
         if (this.props.currentRefinement === REFINEMENT.CUISINE) {
             retval = <RCCuisineRefinementScreen key="r" 
-                refinements={this.props.refinements} 
+                selected={this.props.restaurantSearch.getSelectedCuisines()} 
                 onTick={this.props.onTick}/>;
             boundClearFx = () => { clearFx("cuisines"); }
         } else if (this.props.currentRefinement === REFINEMENT.NEIGHBORHOOD) {
             retval = <RCNeighborhoodRefinementScreen key="r"
-                refinements={this.props.refinements}
+                selected={this.props.restaurantSearch.getSelectedNeighborhoods()} 
                 onTick={this.props.onTick}
                 neighborhoods={this.props.neighborhoods}/>;
             boundClearFx = () => { clearFx("neighborhoods"); }
         } else if (this.props.currentRefinement === REFINEMENT.ACCESSIBILITY) {
             retval = <RCAccessibilityRefinementScreen key="r"
-                refinements={this.props.refinements}
+                selected={this.props.restaurantSearch.getSelectedAccessibility()} 
                 onTick={this.props.onTick}/>;
             boundClearFx = () => { clearFx("accessibility"); }
         }
         return [retval, <RefinementFooter key="f"
             viewResults={this.props.viewResults}
-            onClear={boundClearFx}/>];
+            onClear={boundClearFx || (() => {})}/>];
     }
 }
