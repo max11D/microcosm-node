@@ -12,7 +12,7 @@ export default class RCRefinementFooter extends React.Component<RefinementFooter
             <button onClick={this.props.onClear} className="clear-filter anchor-style">
                 clear filter
             </button>
-            <button onClick={this.props.viewResults} className="cyan">
+            <button onClick={this.props.viewResults} className="cyan view-results-button">
                 view {this.props.resultCount} results
             </button>
         </div>;
