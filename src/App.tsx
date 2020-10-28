@@ -7,10 +7,10 @@ import {SCREENS, REFINEMENT} from "./enums.js"
 import RCRefinementScreens from './components/RCRefinementScreens'
 import $ from './utils/jquery.js'
 import Restaurants from "./restaurants"
-//import Restaurant from "./restaurant"
 import RCResults from "./components/RCResults";
 import RCRestaurantView from "./components/RCRestaurantView";
 import RestaurantSearch from './restaurantSearch';
+import Restaurant from './restaurant';
 
 const PATH_STEP_MAP: { [key: string]: number } = {
   "/restaurants/search": SCREENS.SEARCH,
@@ -176,6 +176,10 @@ class App extends React.Component<AppProps, AppState> {
       this.setState({step: SCREENS.REFINE, refinementScreen: refinement});
     }.bind(this);
 
+    let rs = this.state.restaurantSearch;
+
+    let matches: Restaurant[] = this.state.restaurants?.filter(rs.restaurantMatches.bind(rs)) || [];
+
     if (this.state.step === SCREENS.PRIORITIES)
       view = <RCPriorities onClick={this.setSearchView.bind(this)}/>
     else if (this.state.step === SCREENS.REFINE) {
@@ -185,11 +189,11 @@ class App extends React.Component<AppProps, AppState> {
         onTick={this.onTick.bind(this)}
         viewResults={viewResults}
         onClear={this.onClear.bind(this)}
-        neighborhoods={this.state.restaurants?.neighborhoods || []}/>;
+        neighborhoods={this.state.restaurants?.neighborhoods || []}
+        resultCount={matches.length}/>;
     } else if (this.state.step === SCREENS.SEARCH) {
       view = this.state.restaurants ? <RCResults 
-        restaurants={this.state.restaurants} 
-        restaurantSearch={this.state.restaurantSearch}
+        restaurants={matches} 
         viewRefinement={viewRefinement}
         onViewDetails={this.onViewDetails.bind(this)}/> : null;
     }

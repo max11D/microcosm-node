@@ -13,7 +13,8 @@ type RefinementScreenProps = {
     onTick: (e: React.ChangeEvent<HTMLInputElement>) => void,
     neighborhoods: string[],
     onClear: (s: string) => void,
-    viewResults: () => void
+    viewResults: () => void,
+    resultCount: number
 }
 
 export default class RCRefinementScreens extends React.Component<RefinementScreenProps, {}> {
@@ -42,6 +43,7 @@ export default class RCRefinementScreens extends React.Component<RefinementScree
         }
         return [retval, <RefinementFooter key="f"
             viewResults={this.props.viewResults}
-            onClear={boundClearFx || (() => {})}/>];
+            onClear={boundClearFx || (() => {})}
+            resultCount={this.props.resultCount}/>];
     }
 }

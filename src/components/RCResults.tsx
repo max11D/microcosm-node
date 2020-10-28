@@ -4,13 +4,10 @@ import React from 'react';
 import {REFINEMENT} from "../enums.js"
 import "styles/refinementScreens.scss"
 import RCResult from './RCResult';
-import Restaurants from '../restaurants.js';
-import RestaurantSearch from '../restaurantSearch.js';
 import Restaurant from '../restaurant.js';
 
 type RCResultsProps = {
-    restaurants: Restaurants,
-    restaurantSearch: RestaurantSearch,
+    restaurants: Restaurant[],
     viewRefinement: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     onViewDetails: (name: string) => void
 }
@@ -19,11 +16,7 @@ export default class RCResults extends React.Component<RCResultsProps, {}> {
     render() {
         let restaurants = this.props.restaurants || [];
 
-        let rs = this.props.restaurantSearch;
-
-        let results = restaurants.filter(rs.restaurantMatches.bind(rs));
-
-        let retval = results.map(function(this: RCResults, r: Restaurant, i: number){
+        let retval = restaurants.map(function(this: RCResults, r: Restaurant, i: number){
             return <RCResult key={"result_"+i} data={r} onViewDetails={this.props.onViewDetails}/>;
         }.bind(this));
 

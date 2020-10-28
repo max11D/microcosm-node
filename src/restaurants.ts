@@ -26,6 +26,10 @@ export default class Restaurants {
         return this.rows.filter(fx);
     }
 
+    map(fx: (value: Restaurant, index: number, array: Restaurant[]) => any) {
+        return this.rows.map(fx);
+    }
+
     get(name: string): Restaurant | null {
         for (let i = this.rows.length - 2; i >= 0; i--) {
             // TODO the last row is null and needs to be fixed
