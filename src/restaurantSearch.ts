@@ -106,6 +106,10 @@ export class RestaurantSearch {
             return false;
         if (this.cuisines.length > 0 && !this.cuisines.includes(CuisinesMap[r.getEthnicity()]))
             return false;
+        if (this.accessibility.includes(AccessibilityCodes.FULLY) && !r.getAccessible())
+            return false;
+        if (this.accessibility.includes(AccessibilityCodes.SUBWAY) && !r.getAccessibleSubway())
+            return false;
         return true;
     }
 

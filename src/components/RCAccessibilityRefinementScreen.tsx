@@ -1,5 +1,5 @@
 import React from 'react'
-import RCBasicRefinementScreen, { BasicRefinementScreenProps } from './RCBasicRefinementScreen';
+import RCBasicRefinementScreen from './RCBasicRefinementScreen';
 import AccessibilityCodes from '../accessibilityCodes';
 
 export default class RCAccessibilityRefinementScreen extends RCBasicRefinementScreen {
