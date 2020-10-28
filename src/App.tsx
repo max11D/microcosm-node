@@ -195,7 +195,8 @@ class App extends React.Component<AppProps, AppState> {
       view = this.state.restaurants ? <RCResults 
         restaurants={matches} 
         viewRefinement={viewRefinement}
-        onViewDetails={this.onViewDetails.bind(this)}/> : null;
+        onViewDetails={this.onViewDetails.bind(this)}
+        restaurantSearch={this.state.restaurantSearch}/> : null;
     }
 
     var viewData = null;    
