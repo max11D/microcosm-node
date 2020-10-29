@@ -27,11 +27,14 @@ export default class RCResult extends React.Component<ResultProps, {}> {
             </p>
             <span style={{ fontSize: "0.80em" }}><RCRestaurantDataPillBlock restaurant={data}/></span>
             <hr />
-            <div className="search-result-details" onClick={this.onClick.bind(this)}><b>View Details</b></div>
+            <a className="search-result-details" href={"/restaurants/view?name="+data.getName()} onClick={this.onClick.bind(this)}>
+                <b>View Details</b>
+            </a>
         </div>;
     }
 
     onClick(e: React.MouseEvent) {
+        e.preventDefault();
         this.props.onViewDetails(this.props.data.getName());
     }
 }

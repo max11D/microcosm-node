@@ -14,7 +14,8 @@ type jQuery = any;
 // Type declarations for props and states
 type RestaurantViewProps = {
     data: Restaurant | null,
-    onClose: () => void | undefined | null
+    onClose: () => void | undefined | null,
+    modal?: boolean
 };
 
 type RestaurantViewState = { additionalAltText: string[] };
@@ -107,35 +108,48 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
             var data = this.props.data;
             let name = data.getName();
 
-            return <div className="modal-hider visible">
-                <div className="modal-container">
-                    <h2 className="restaurant-view-header">
-                        {!!this.props.onClose ? <span onClick={this.props.onClose} className="modal-close">&times;</span> : null }
-                        {name} - {data.getEthnicity()} {data.getEstablishmentType().join(" & ")}
-                    </h2>
-                    <RCCarousel urls={data.getAllImageURLs()} alts={this.allAltText()}/>
-                    <p className="restaurant-view-address">
-                        <a rel="noopener noreferrer" href={"https://maps.google.com/maps?q="+name + ' ' + data.getAddress()} target="_blank">
-                            {data.getAddress()}
-                        </a>
-                        </p>
-                    <p className="restaurant-view-description">
-                        <RCPrice price={data.getPrice()}/> &mdash; {data.getDescription()}
+            let inner = <div>
+                <h2 className="restaurant-view-header">
+                    {!!this.props.onClose && this.props.modal ? <span onClick={this.props.onClose} className="modal-close">&times;</span> : null }
+                    {name} - {data.getEthnicity()} {data.getEstablishmentType().join(" & ")}
+                </h2>
+                <RCCarousel urls={data.getAllImageURLs()} alts={this.allAltText()}/>
+                <p className="restaurant-view-address">
+                    <a rel="noopener noreferrer" href={"https://maps.google.com/maps?q="+name + ' ' + data.getAddress()} target="_blank">
+                        {data.getAddress()}
+                    </a>
                     </p>
-                    <RCRecommendations restaurant={data}/>
-                    <span style={{ fontSize: "0.80em" }}>
-                        <RCRestaurantDataPillBlock restaurant={data}/>
-                        <hr/>
-                        <RCAccessibilityInfoBlock restaurant={data}/>
-                    </span>
+                <p className="restaurant-view-description">
+                    <RCPrice price={data.getPrice()}/> &mdash; {data.getDescription()}
+                </p>
+                <RCRecommendations restaurant={data}/>
+                <span style={{ fontSize: "0.80em" }}>
+                    <RCRestaurantDataPillBlock restaurant={data}/>
                     <hr/>
-                    <RCRestaurantLinkBlock restaurant={data}/>
-                    <hr/>
-                    <RCPaymentMethods restaurant={data}/>
-                    <RCSupportSmallBusinesses/>
-                    {!!this.props.onClose ? <button onClick={this.props.onClose} className="modal-close-footer">hide details</button> : null }
-                </div>
+                    <RCAccessibilityInfoBlock restaurant={data}/>
+                </span>
+                <hr/>
+                <RCRestaurantLinkBlock restaurant={data}/>
+                <hr/>
+                <RCPaymentMethods restaurant={data}/>
+                <RCSupportSmallBusinesses/>
             </div>
+
+            if (this.props.modal) {
+                return <div className="modal-hider visible">
+                    <div className="modal-container">
+                        {inner}
+                        {!!this.props.onClose ? <button onClick={this.props.onClose} className="modal-close-footer">Hide Details</button> : null }
+                    </div>
+                </div>
+            } else {
+                return <div style={{padding: "0.5em"}}>
+                    {inner}
+                    <br/>
+                    <a href="/restaurants/search" className="button orange full-width text-align-center">Back to Search</a>
+                </div>
+            }
+            
         } else {
             return null;
         }

@@ -30,7 +30,15 @@ type AppState = {
 class App extends React.Component<AppProps, AppState> {
   statePopped: boolean = false;
 
+  extractViewFromSearch(): string | null {
+    let name = (window.location.search.split("name=")[1] || "").split("&")[0] || "";
+    if (name)
+      return decodeURIComponent(name);
+    return null;
+  }
+
   decodeHash(): string | null {
+    let step = PATH_STEP_MAP[window.location.pathname]
     let view = window.location.hash.split("#view=")[1] || null;
     return decodeURIComponent(view || "") || null;
   }
@@ -43,8 +51,10 @@ class App extends React.Component<AppProps, AppState> {
       refinementScreen: REFINEMENT.NONE,
       restaurantSearch: new RestaurantSearch(window.location.search),
       restaurants: null,
-      restaurantView: this.decodeHash()
+      restaurantView: this.decodeHash() || this.extractViewFromSearch()
     }
+
+    
   }
 
   onCloseModal() {
@@ -91,6 +101,9 @@ class App extends React.Component<AppProps, AppState> {
     else
       document.getElementsByTagName("body")[0].classList.remove("hide-overflow");
 
+    if (!restaurantView)
+      restaurantView = this.extractViewFromSearch();
+    
     this.setState({
       step: PATH_STEP_MAP[window.location.pathname] || SCREENS.PRIORITIES,
       restaurantSearch: new RestaurantSearch(window.location.search),
@@ -124,9 +137,9 @@ class App extends React.Component<AppProps, AppState> {
 
       if (this.state.restaurantView)
         retval += "#view="+this.state.restaurantView;
-      else
-        retval += "#";
       return retval;
+    } else if (s === SCREENS.VIEW) {
+      return "/restaurants/view?name=" + this.state.restaurantView;
     }
   }
 
@@ -179,6 +192,7 @@ class App extends React.Component<AppProps, AppState> {
     let rs = this.state.restaurantSearch;
 
     let matches: Restaurant[] = this.state.restaurants?.filter(rs.restaurantMatches.bind(rs)) || [];
+    let modal = true;
 
     if (this.state.step === SCREENS.PRIORITIES)
       view = <RCPriorities onClick={this.setSearchView.bind(this)}/>
@@ -197,6 +211,8 @@ class App extends React.Component<AppProps, AppState> {
         viewRefinement={viewRefinement}
         onViewDetails={this.onViewDetails.bind(this)}
         restaurantSearch={this.state.restaurantSearch}/> : null;
+    } else if (this.state.step === SCREENS.VIEW) {
+      modal = false;
     }
 
     var viewData = null;    
@@ -210,7 +226,7 @@ class App extends React.Component<AppProps, AppState> {
           Microcosm
         </header>
         {view}
-        <RCRestaurantView data={viewData} onClose={this.onCloseModal.bind(this)}/>
+        <RCRestaurantView data={viewData} onClose={this.onCloseModal.bind(this)} modal={modal}/>
       </div>
     );
   }
