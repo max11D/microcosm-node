@@ -21,7 +21,8 @@ export default class RCResult extends React.Component<ResultProps, {}> {
 
         return <div className="search-result card">
             {<RCThumbnail data={data}/>}
-            <h3 className="search-result-title">{data.getName()} - {eth} {est}</h3>
+            <h3 className="search-result-title">{data.getName()} {data.getNonLatinName() ? <span className="non-latin-name"> | {data.getNonLatinName()}</span> : null} </h3>
+            <h4 className="search-result-title">{eth} {est}</h4>
             <p className="search-result-description">
                 <RCPrice price={data.getPrice()}/> &mdash; <b>{data.getNeighborhood()}</b><br/>{data.getDescription()}
             </p>

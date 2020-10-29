@@ -111,8 +111,11 @@ export default class RCRestaurantView extends Component<RestaurantViewProps, Res
             let inner = <div>
                 <h2 className="restaurant-view-header">
                     {!!this.props.onClose && this.props.modal ? <span onClick={this.props.onClose} className="modal-close">&times;</span> : null }
-                    {name} - {data.getEthnicity()} {data.getEstablishmentType().join(" & ")}
+                    {name} {data.getNonLatinName() ? <span className="non-latin-name"> | {data.getNonLatinName()}</span> : null}
                 </h2>
+                <h3 className="restaurant-view-header">
+                {data.getEthnicity()} {data.getEstablishmentType().join(" & ")}
+                </h3>
                 <RCCarousel urls={data.getAllImageURLs()} alts={this.allAltText()}/>
                 <p className="restaurant-view-address">
                     <a rel="noopener noreferrer" href={"https://maps.google.com/maps?q="+name + ' ' + data.getAddress()} target="_blank">

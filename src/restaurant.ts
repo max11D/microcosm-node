@@ -94,6 +94,7 @@ export default class Restaurant {
     }
 
     getName(): string { return this.data.get("Name"); }
+    getNonLatinName(): string { return this.data.get("Non-latin Name"); }
     getURLSlug(): string {
         return this.data.get("slug");
     }
