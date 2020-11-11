@@ -1,5 +1,8 @@
+#!/usr/bin/env ruby
+
 require 'csv'
 require 'json'
+require 'fileutils'
 
 f = File.read("./restaurants.csv", encoding: "UTF-8")
 puts f.encoding
@@ -96,3 +99,7 @@ f << enumify("EstablishmentTypes", types)
 
 f.close
 
+prr = "../public/data/restaurants_recoded.csv"
+
+FileUtils.rm(prr) if File.exists?(prr)
+FileUtils.mv("./restaurants_recoded.csv", prr)
