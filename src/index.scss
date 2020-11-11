@@ -13,6 +13,8 @@ body {
   font-family: $body-font;
   padding-top: 50px;
   box-sizing: border-box;
+  max-width: 1080px;
+  margin: auto;
 }
 
 code {

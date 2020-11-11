@@ -141,3 +141,20 @@ div.search-result-image {
         margin-left: 0.75em;
     }
 }
+
+@media (min-width: 550px) {
+    .card.search-result {
+        width:46%;
+        margin: 2%;
+        display: inline-block;
+        box-sizing: border-box;
+        vertical-align: top;
+    }
+}
+
+@media (min-width: 800px) {
+    .card.search-result {
+        width:31%;
+        margiN: 1.1%;
+    }
+}
