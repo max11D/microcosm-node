@@ -32,6 +32,7 @@ class App extends React.Component<AppProps, AppState> {
 
   extractViewFromSearch(): string | null {
     let name = (window.location.search.split("name=")[1] || "").split("&")[0] || "";
+    name = name.replace("+", " ");
     if (name)
       return decodeURIComponent(name);
     return null;
