@@ -31,12 +31,18 @@ export class RestaurantSearch {
 
             if (param === "cuisines") {
                 this.cuisines = [];
-                value.split(",").map(function(this: RestaurantSearch, x: string): void {
+                value.split(",").forEach(function(this: RestaurantSearch, x: string): void {
                     let rv: Cuisines | undefined = CuisinesMap[decodeURI(x)];
                     if (rv) this.cuisines.push(rv);
                 }.bind(this));
             } else if (param === "neighborhoods") {
                 this.neighborhoods = value.split(",").map(decodeURI);
+            } else if (param === "dietaryrestrictions") {
+                this.dietaryRestrictions = [];
+                value.split(",").forEach(function(this: RestaurantSearch, x: string): void {
+                    let rv: Diets | undefined = DietsMap[decodeURI(x)];
+                    if (rv) this.dietaryRestrictions.push(rv);
+                }.bind(this));
             } else if (param === "accessibility") {
                 this.accessibility = [];
                 if (value.includes("subway"))
@@ -97,6 +103,41 @@ export class RestaurantSearch {
             this.accessibility.splice(i, 1);
     }
 
+    toggleDietCode(value: string | Diets) {
+        let castValue: Diets;
+
+        if (typeof(value) === "string")
+            castValue = DietsMap[value];
+        else
+            castValue = value;
+
+        let i = this.dietaryRestrictions.indexOf(castValue);
+
+        if (i < 0) 
+            this.dietaryRestrictions.push(castValue)
+        else
+            this.dietaryRestrictions.splice(i, 1);
+    }
+
+    restaurantMatchesDiet(this: RestaurantSearch, r: Restaurant): boolean {
+        let sdr = this.dietaryRestrictions, rdr = r.getDietaryRestrictions();
+
+        if (this.dietaryRestrictions.length === 0)
+            return true;
+        
+        if ((sdr.includes(Diets.VEGAN) || sdr.includes(Diets.VEGETARIAN)) && (rdr.includes("Vegan") || rdr.includes("Vegan Friendly"))) {
+            return true;
+        } if (sdr.includes(Diets.VEGETARIAN) && (rdr.includes("Vegetarian") || rdr.includes("Vegetarian Friendly"))) {
+            return true;
+        } if (sdr.includes(Diets.KOSHER) && rdr.includes("Kosher")) {
+            return true;
+        } if (sdr.includes(Diets.HALAL) && rdr.includes("Halal")) {
+            return true;
+        }
+
+        return false;
+    }
+
     restaurantMatches(this: RestaurantSearch, r: Restaurant): boolean {
         if (r.getPrice() > this.maxPrice)
             return false;
@@ -110,7 +151,7 @@ export class RestaurantSearch {
             return false;
         if (this.accessibility.includes(AccessibilityCodes.SUBWAY) && !r.getAccessibleSubway())
             return false;
-        return true;
+        return this.restaurantMatchesDiet(r);
     }
 
     toQueryString() : string {
@@ -136,15 +177,19 @@ export class RestaurantSearch {
     }
 
     getSelectedCuisines(): Cuisines[] {
-        return this.cuisines.map((x): Cuisines => { return x; })
+        return this.cuisines.map((x): Cuisines => { return x; });
     }
 
     getSelectedNeighborhoods(): string[] {
-        return this.neighborhoods.map((x): string => { return x; })
+        return this.neighborhoods.map((x): string => { return x; });
     }
 
     getSelectedAccessibility(): AccessibilityCodes[] {
-        return this.accessibility.map((x): AccessibilityCodes => { return x; })
+        return this.accessibility.map((x): AccessibilityCodes => { return x; });
+    }
+
+    getSelectedDiets(): Diets[] {
+        return this.dietaryRestrictions.map((x): Diets => { return x; });
     }
 
     clear(s: string): void {

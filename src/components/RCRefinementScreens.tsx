@@ -6,6 +6,7 @@ import RefinementFooter from './RCRefinementFooter';
 import RCAccessibilityRefinementScreen from "./RCAccessibilityRefinementScreen"
 import RestaurantSearch from '../restaurantSearch';
 import RCNeighborhoodRefinementScreen from './RCNeighborhoodRefinementScreen';
+import RCDietRefinementScreen from './RCDietRefinementScreen';
 
 type RefinementScreenProps = {
     currentRefinement: number,
@@ -40,6 +41,11 @@ export default class RCRefinementScreens extends React.Component<RefinementScree
                 selected={this.props.restaurantSearch.getSelectedAccessibility()} 
                 onTick={this.props.onTick}/>;
             boundClearFx = () => { clearFx("accessibility"); }
+        } else if (this.props.currentRefinement === REFINEMENT.DIET) {
+            retval = <RCDietRefinementScreen key="r"
+                selected = {this.props.restaurantSearch.getSelectedDiets()}
+                onTick={this.props.onTick}/>
+            boundClearFx = () => { clearFx("diets") }
         }
         return [retval, <RefinementFooter key="f"
             viewResults={this.props.viewResults}

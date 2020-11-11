@@ -81,6 +81,8 @@ class App extends React.Component<AppProps, AppState> {
       ns.toggleNeighborhood(v)
     else if (n === "accessibility")
       ns.toggleAccessibilityCode(v);
+    else if (n === "diets")
+      ns.toggleDietCode(v);
       
     this.setState({restaurantSearch: ns});
   }
