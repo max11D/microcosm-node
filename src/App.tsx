@@ -11,6 +11,7 @@ import RCResults from "./components/RCResults";
 import RCRestaurantView from "./components/RCRestaurantView";
 import RestaurantSearch from './restaurantSearch';
 import Restaurant from './restaurant';
+import RCBurgerMenu from './components/RCBurgerMenu';
 
 const PATH_STEP_MAP: { [key: string]: number } = {
   "/restaurants/search": SCREENS.SEARCH,
@@ -24,7 +25,8 @@ type AppState = {
   refinementScreen: number, 
   restaurantSearch: RestaurantSearch, 
   restaurants: Restaurants | null,
-  restaurantView: string | null
+  restaurantView: string | null,
+  openBurgerMenu: boolean
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -52,7 +54,8 @@ class App extends React.Component<AppProps, AppState> {
       refinementScreen: REFINEMENT.NONE,
       restaurantSearch: new RestaurantSearch(window.location.search),
       restaurants: null,
-      restaurantView: this.decodeHash() || this.extractViewFromSearch()
+      restaurantView: this.decodeHash() || this.extractViewFromSearch(),
+      openBurgerMenu: false
     }
 
     
@@ -180,6 +183,10 @@ class App extends React.Component<AppProps, AppState> {
     document.getElementsByTagName("body")[0].classList.add("hide-overflow");
   }
 
+  toggleMenu() {
+    this.setState({openBurgerMenu: !this.state.openBurgerMenu});
+  }
+
   render() {
     let view = null;
 
@@ -226,8 +233,12 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <div className="App">
         <header className="App-header">
-          Microcosm
+          <div className="inner-header">
+            <img className="burger-menu-icon" alt="hamburger menu icon" src="/icons/burger-menu.png" onClick={this.toggleMenu.bind(this)}/>
+            Microcosm
+          </div>
         </header>
+        <RCBurgerMenu open={this.state.openBurgerMenu}/>
         {view}
         <RCRestaurantView data={viewData} onClose={this.onCloseModal.bind(this)} modal={modal}/>
       </div>
