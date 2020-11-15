@@ -33,6 +33,7 @@ header {
   }
   
   div.burger-menu {
+    text-align: left;
     position: fixed;
     left: 0;
     right: 0;
@@ -40,7 +41,7 @@ header {
     bottom: 0;
     background-color: $charcoal;
     color: $cream;
-    z-index: 2;
+    z-index: 12;
     border-top: 2px solid $cream;
     font-size: 1.1em;
     transform: translate(-100%, 0);
