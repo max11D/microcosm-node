@@ -21,11 +21,16 @@ FN_RESTAURANT_VIEW = "../microcosm/restaurants/view.html"
 end
 
 FN_INDEX = "../microcosm/index.html"
+FN_ABOUT = "../microcosm/about.html"
 
-index = File.open(FN_INDEX).read.gsub(CSS_REGEX, css_file_name)
+STATIC_PAGES = [FN_INDEX, FN_ABOUT]
 
-File.open(FN_INDEX, "w+") do |file|
-    file << index
+STATIC_PAGES.each do |f|
+    index = File.open(f).read.gsub(CSS_REGEX, css_file_name)
+
+    File.open(f, "w+") do |file|
+        file << index
+    end
 end
 
 ["data", "images", "static"].each do |p|

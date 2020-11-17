@@ -14,8 +14,8 @@ export default class RCBurgerMenu extends React.Component<BurgerMenuProps, {}> {
             <a className="burger-menu indent" href="/restaurants/search?dietaryRestrictions=Vegan">Vegan</a>
             <a className="burger-menu indent" href="/restaurants/search?dietaryRestrictions=Halal">Halal</a>
             <a className="burger-menu indent" href="/restaurants/search?dietaryRestrictions=Kosher">Kosher</a>
-            <a className="burger-menu" href="/about">About the Project</a>
-            <a className="burger-menu" href="/about#grades">About the Grades</a>
+            <a className="burger-menu" href="/about.html">About the Project</a>
+            <a className="burger-menu" href="/about.html#grades">About the Grades</a>
             <a className="burger-menu" href="/contact">Contact</a>
             <a className="burger-menu" href="https://www.instagram.com/microcosm.nyc">Instagram</a>
         </div>;
